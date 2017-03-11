@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Pagina profilo della Milestone 1</title>
+        <meta charset="UTF-8">
+        <meta name="author" content="Claudio Arzu">
+        <meta name="description" content="milestone 1, AMM2017">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>
+            <header>
+                <h1>NerdBook</h1>
+            </header>
+            <nav>
+                <ul class="navbar">
+                    <li><a href="descrizione.html">Descrizione</a></li>
+                    <li><a href="login.html">Login</a></li>
+                </ul>
+            </nav>
+            <div class="form">
+                <form class="form_signin" action="sighin.php" method="post">
+                    <label for="nome">Nome</label>
+                        <input type="text" id="nome" name="name" placeholder="Inserisci nome" required>
+                        <br>
+                    <label for="cognome">Cognome</label>
+                        <input type="text" id="cognome" name="cognome" placeholder="Inserisci cognome" required>
+                        <br>
+                    <label for="url_img">Indirizzo immagine profilo</label>
+                        <input type="url" id="url_img" name="url_img" placeholder="Inserisci url" required>
+                        <br>
+                    <label for="frase">Frase di Presentazione</label>
+                        <textarea rows="7" cols="20" id="frase" name="frase" placeholder="Inserisci frase" required></textarea>
+                        <br>
+                    <label for="data">Data di Nascita</label>
+                        <input type="date" id="data" name="data" placeholder="Inserisci data di nascita" required>
+                        <br>
+                    <label for="psw">Password</label>
+                        <input type="password" id="psw" name="psw" placeholder="Inserisci password" required>
+                        <br>
+                    <label for="c_psw">Conferma Password</label>
+                        <input type="password" id="c_psw" name="c_psw" placeholder="Conferma password" required>
+                        <br>
+                    <button type="submit" name="conferma">Registrati</button>
+                    <button type="reset" name="cancella">Cancella Campi</button> 
+                </form>
+            </div>                  
+        </div>
+    </body>
+</html>
