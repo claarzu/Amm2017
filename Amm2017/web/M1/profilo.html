@@ -10,6 +10,7 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="author" content="Claudio Arzu">
         <meta name="description" content="milestone 1, AMM2017">
+        <meta name="keywords" content="HTML, Amm2017">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
@@ -17,8 +18,8 @@ and open the template in the editor.
             <header>
                 <h1>NerdBook</h1>
             </header>
-            <nav>
-                <ul class="navbar">
+            <nav class="navbar">
+                <ul class="nav_bar">
                     <li><a href="descrizione.html">Descrizione</a></li>
                     <li><a href="login.html">Login</a></li>
                 </ul>
@@ -38,7 +39,8 @@ and open the template in the editor.
                         <textarea rows="7" cols="20" id="frase" name="frase" placeholder="Inserisci frase" required></textarea>
                         <br>
                     <label for="data">Data di Nascita</label>
-                        <input type="date" id="data" name="data" placeholder="Inserisci data di nascita" required>
+                    <!--lo strumento di validazione mi da un warning, in quanto il tipo di input "date" non è supportato da tutti i browser -->
+                        <input type="date" id="data" name="data" required> 
                         <br>
                     <label for="psw">Password</label>
                         <input type="password" id="psw" name="psw" placeholder="Inserisci password" required>
@@ -49,7 +51,10 @@ and open the template in the editor.
                     <button type="submit" name="conferma">Registrati</button>
                     <button type="reset" name="cancella">Cancella Campi</button> 
                 </form>
-            </div>                  
+            </div>
+            <footer>
+                
+            </footer>
         </div>
     </body>
 </html>
