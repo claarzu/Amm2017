@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css" type="text/css"/>
+
+        <title>Pagina Login della Milestone 2</title>
+        <meta charset="UTF-8">
+        <meta name="author" content="Claudio Arzu">
+        <meta name="description" content="milestone 1, AMM2017">
+        <meta name="keywords" content="HTML, Amm2017">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="style.css" media="screen">
+    </head>
+    <body>
+        <div class="contenitore">
+            <header class="intest">
+                <h1>NerdBook</h1>
+            </header>
+            <nav class="navbar">
+                <ul class="nav_bar">
+                    <li><a href="descrizione.html">Descrizione</a></li>
+                    <li><a href="profilo.html">Profilo</a></li>
+                    <li><a href="bacheca.html">Bacheca</a></li>
+                </ul>
+            </nav>
+            <br>
+            <div class="form_box_login">
+                <form action="login.php" method="post">
+                    <div class="log_in">
+                        <img id="utente" alt="profile" src="Immagini/utenti2.png">
+                        <h2 id="titolo_form">Login a Nerdbook</h2>
+                    </div>
+                    
+                    <br>
+                    <label for="username">Username</label>
+                        <input type="text" name="username" id="username" value="inserisci username"/>
+                        <br>
+                    <label for="psw">Password</label>
+                        <input type="text" name="psw" id="psw" value="inserisci password"/>
+                        <br>
+                    <button class="conferma" type="submit">Login</button>
+                    <button class="cancella" type="reset">Cancella Campi</button>
+                </form>
+            </div>
+        </div>
+        <footer>
+            <p><i>Milestone 2 per Amm2017</i></p>
+        </footer>
+    </body>
+</html>
