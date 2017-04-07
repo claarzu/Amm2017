@@ -46,38 +46,41 @@ and open the template in the editor.
                     </ul>
                 </aside>
                 <br>
-                <div class="form_box">
-                    <form class="form_signin" action="sighin.html" method="post">
-                        <div class="sign_in">
-                            <img id="utente2" alt="immagine del profilo" src="Immagini/utenti.png">
-                        </div>
-                        <label for="nome">Nome</label>
-                            <input type="text" id="nome" name="name" placeholder="Inserisci nome" required>
-                            <br>
-                        <label for="cognome">Cognome</label>
-                            <input type="text" id="cognome" name="cognome" placeholder="Inserisci cognome" required>
-                            <br>
-                        <label for="url_img">Indirizzo immagine profilo</label>
-                            <input type="url" id="url_img" name="url_img" placeholder="Inserisci url" required>
-                            <br>
-                        <label for="frase">Frase di Presentazione</label>
-                            <textarea rows="7" cols="20" id="frase" name="frase" placeholder="Inserisci frase" required></textarea>
-                            <br>
-                        <label for="data">Data di Nascita</label>
-                        <!--lo strumento di validazione mi da un warning, in quanto il tipo di input "date" non è supportato da tutti i browser -->
-                            <input type="date" id="data" name="data" required> 
-                            <br>
-                        <label for="psw">Password</label>
-                            <input type="password" id="psw" name="psw" placeholder="Inserisci password" required>
-                            <br>
-                        <label for="c_psw">Conferma Password</label>
-                            <input type="password" id="c_psw" name="c_psw" placeholder="Conferma password" required>
-                            <br>
-                        <button id="conferma" type="submit" name="conferma">Registrati</button>
-                        <button id="cancella" type="reset" name="cancella">Cancella Campi</button> 
-                    </form>
+                <div class="box_profilo">
+                    <div class="sign_in">
+                        <img id="utente2" alt="immagine del profilo" src="Immagini/utenti.png">
+                    </div>
+                    <div class="form_box">
+                        <form class="form_signin" action="sighin.html" method="post">
+
+                            <label for="nome">Nome</label>
+                                <input type="text" id="nome" name="name" placeholder="Inserisci nome" required>
+                                <br>
+                            <label for="cognome">Cognome</label>
+                                <input type="text" id="cognome" name="cognome" placeholder="Inserisci cognome" required>
+                                <br>
+                            <label for="url_img">Indirizzo immagine profilo</label>
+                                <input type="url" id="url_img" name="url_img" placeholder="Inserisci url" required>
+                                <br>
+                            <label for="frase">Frase di Presentazione</label>
+                                <textarea rows="7" cols="20" id="frase" name="frase" placeholder="Inserisci frase" required></textarea>
+                                <br>
+                            <label for="data">Data di Nascita</label>
+                            <!--lo strumento di validazione mi da un warning, in quanto il tipo di input "date" non è supportato da tutti i browser -->
+                                <input type="date" id="data" name="data" required> 
+                                <br>
+                            <label for="psw">Password</label>
+                                <input type="password" id="psw" name="psw" placeholder="Inserisci password" required>
+                                <br>
+                            <label for="c_psw">Conferma Password</label>
+                                <input type="password" id="c_psw" name="c_psw" placeholder="Conferma password" required>
+                                <br>
+                            <button id="conferma" type="submit" name="conferma">Registrati</button>
+                            <button id="cancella" type="reset" name="cancella">Cancella Campi</button> 
+                        </form>
+                    </div>
                 </div>
-            </div>
+                </div>
             <footer>
                 
             </footer>
