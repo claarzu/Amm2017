@@ -54,10 +54,10 @@ and open the template in the editor.
                         <form class="form_signin" action="sighin.html" method="post">
 
                             <label for="nome">Nome</label>
-                                <input type="text" id="nome" name="name" placeholder="Inserisci nome" required>
+                                <input type="text" id="nome" name="name" value="mario nome" required>
                                 <br>
                             <label for="cognome">Cognome</label>
-                                <input type="text" id="cognome" name="cognome" placeholder="Inserisci cognome" required>
+                                <input type="text" id="cognome" name="cognome" value="rossi" required>
                                 <br>
                             <label for="url_img">Indirizzo immagine profilo</label>
                                 <input type="url" id="url_img" name="url_img" placeholder="Inserisci url" required>
@@ -67,7 +67,7 @@ and open the template in the editor.
                                 <br>
                             <label for="data">Data di Nascita</label>
                             <!--lo strumento di validazione mi da un warning, in quanto il tipo di input "date" non è supportato da tutti i browser -->
-                                <input type="date" id="data" name="data" required> 
+                                <input type="date" id="data" name="01/01/1990" required> 
                                 <br>
                             <label for="psw">Password</label>
                                 <input type="password" id="psw" name="psw" placeholder="Inserisci password" required>
@@ -75,7 +75,7 @@ and open the template in the editor.
                             <label for="c_psw">Conferma Password</label>
                                 <input type="password" id="c_psw" name="c_psw" placeholder="Conferma password" required>
                                 <br>
-                            <button id="conferma" type="submit" name="conferma">Registrati</button>
+                            <button id="conferma" type="submit" name="conferma">Aggiorna</button>
                             <button id="cancella" type="reset" name="cancella">Cancella Campi</button> 
                         </form>
                     </div>

@@ -4,6 +4,11 @@
 */
 
 /* --- stili validi per tutte le pagine --- */
+h1, h2, h3, h4{
+    font-family: "Arial", serif;
+    color: #b30000;
+}
+
 .contenitore {
     width: 100%;
     overflow: hidden;
@@ -320,7 +325,8 @@ label{
 }
 .sidebar {
     float: left;
-    width: 15%;    
+    width: 15%; 
+    height: 860px; 
     border-right: groove;
     overflow: hidden;
 }
@@ -433,15 +439,15 @@ label{
     }
     .sidebar{
         width: 100%;
+        height: 100%;
         float: none;
     }
     .sidebar_ul{        
         width: 100%;
-        margin-left: 26%;
+        margin-left: 20%;
         margin-right: auto;
     }
-    .sidebar_ul li{
-        
+    .sidebar_ul li{        
         overflow: hidden;
         margin: 0;
 
@@ -472,7 +478,7 @@ label{
     }
 
     .stato {
-        width: 95.3%;
+        width: 94%;
         margin-left: auto;
         margin-right: auto;
     }
@@ -524,9 +530,10 @@ label{
     #utente{
         float: left;
         margin-top: 2%;
-        margin-left: 22.7%;
+        margin-left: 10%;
         margin-right: auto;
         overflow: hidden;
+        padding-left: 10%;
     }
     .log_in{
         width: 100%;
@@ -537,8 +544,9 @@ label{
         float: right;
         overflow: hidden;        
         margin-bottom: 0;
-        margin-right: 17.8%;
+        margin-right: 10%;
         padding-top: 2.5%;
+        padding-right: 10%;
         font-size: 15px;    
     }
     .elenco{
@@ -695,9 +703,9 @@ label{
         margin-left: auto;
     }
 }
-@media screen and (min-width: 6000px){
+@media screen and (min-width: 768px) and (max-width: 1024px){
     #head{
-        width: 18%;
+        width: 25%;
         overflow: hidden;
     }
     #head a{
@@ -710,17 +718,70 @@ label{
         margin-right: auto;
         overflow: hidden;
     }
+    .sidebar{
+        width: 25%;
+    }
+    .sidebar_ul{
+        width: 100%;   
+        margin: 0;
+        padding: 0;
+    }
+    .sidebar_ul li{
+        width: 70%;
+        margin-left: 10%;
+        padding-left: 16%;
+    }
+    .sidebar_ul li a{ 
+        text-align: center;
+        font-size: 18px;      
+        
+    }
+    .box_profilo{
+        width: 74%;
+        float: right;
+    }
+    .sign_in{
+        float: left;
+        margin-left: 2%;
+    }
+    .form_box{
+        margin-top: 0;
+        float: right;
+        width: 80%;
+    }
+    .form_signin{
+        margin-top: 0;
+        width: 100%;
+        margin-right: 2.5%;
+    }
+    #utente2{
+        float: none;
+        margin-left: 3%; 
+        margin-bottom: 5%;
+    }
+    #utente{
+        margin-left: 20%;
+    }
     #titolo_form{
-        overflow: hidden;
-        margin-right: 25%;  
-        font-size: 15px;
+        margin-right: 9.9%;
+        
+    }
+    .stati{
+        width: 74%;
+        padding: 0;
+    }
+    .stato_utente{
+        width: 97%;
+    }
+    .stato{
+        width: 94%;
     }
     .elenco{        
         overflow: hidden;
-        width: 99.4%;
+        width: 98.8%;
     }
     .elenco_ul{
-        width: 100%;
+        width: 80%;
         margin-right: auto;
         margin-left: auto;
         overflow: hidden;
@@ -728,7 +789,322 @@ label{
     }
     .elenco_ul li{
         float: left;
-        margin-left: 9.3%;
+        
+    }
+    
+}
+@media screen and (min-width: 768px){
+    #head{
+        width: 25%;
+        overflow: hidden;
+    }
+    #head a{
+        width: 86%;
+    }
+    #utente{
+        position: relative;
+        margin-top: 2%;
+        margin-left: 32%;
+        margin-right: auto;
+        overflow: hidden;
+    }
+    .sidebar{
+        width: 25%;
+    }
+    .sidebar_ul{
+        width: 100%;   
+        margin: 0;
+        padding: 0;
+    }
+    .sidebar_ul li{
+        width: 70%;
+        margin-left: 10%;
+        padding-left: 16%;
+    }
+    .sidebar_ul li a{ 
+        text-align: center;
+        font-size: 18px;      
+        
+    }
+    .box_profilo{
+        width: 74%;
+        float: right;
+    }
+    .sign_in{
+        float: left;
+        margin-left: 2%;
+    }
+    .form_box{
+        margin-top: 0;
+        float: right;
+        width: 80%;
+    }
+    .form_signin{
+        margin-top: 0;
+        width: 100%;
+        margin-right: 2.5%;
+    }
+    #utente2{
+        float: none;
+        margin-left: 3%; 
+        margin-bottom: 5%;
+    }
+    #utente{
+        margin-left: 20%;
+    }
+    #titolo_form{
+        margin-right: 9.9%;
+        
+    }
+    .stati{
+        width: 74%;
+        padding: 0;
+    }
+    .stato_utente{
+        width: 97%;
+    }
+    .stato{
+        width: 94%;
+    }
+    .elenco{        
+        overflow: hidden;
+        width: 98.8%;
+    }
+    .elenco_ul{
+        width: 80%;
+        margin-right: auto;
+        margin-left: auto;
+        overflow: hidden;
+
+    }
+    .elenco_ul li{
+        float: left;
+        
+    }
+    
+}
+@media screen and (min-width: 480px) and (max-width: 768px){
+.contenitore {
+    }
+    .intest {
+        width: 100%;
+        height: 25px;
+    }
+    .intest h1{
+        font-size: 15px;
+        padding-top: 5px;
+    }
+    .navbar {
+        width: 100%;
+        margin: auto;
+        overflow: hidden;
+    }
+    .navbar li{
+        width: 96%;
+        float: none;
+        overflow: hidden;
+        margin: 0;
+        height: 30px;
+    }
+    .navbar li a{
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin-left: auto; 
+        margin-right: auto;
+        padding: 8px 10px;      
+    }
+    .navbar li:hover{
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .navbar li a:hover {        
+        color: #b30000;
+    }
+    #head{        
+        border: none;
+        float: none;
+        overflow: hidden;
+        margin-left: auto;
+        margin-right: auto;
+        height: 25px;
+        width: 100%;
+    }
+    #head a{
+        text-align: center;
+        width: 95%;
+        margin-left: auto;
+        margin-right: 1.5%;
+    }
+    #head:hover{
+        width: 100%;
+    }
+    #nav_user{
+        float: none;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    #nav_user li h3{
+        text-align: center;
+        width: 100%;
+        display: none;
+    }
+    .sidebar{
+        width: 100%;
+        height: 100%;
+        margin: auto;
+        float: none;
+    }
+    .sidebar_ul{        
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .sidebar_ul li{
+        width: 100%;
+        float: none;
+        overflow: hidden;
+        height:50%;
+        margin-left: auto;
+        margin-right: auto;        
+    }
+    .sidebar_ul li a{    
+        display: block; 
+        width: 80%;
+        text-align: center;
+        margin-left: 20%; 
+        margin-right: 20%;
+    }    
+    .tp::before, .pt::before,.pp::before, .img_gruppi::before{
+        display: none;
+
+    }     
+    .sidebar h1{
+        width: 80%;
+        margin-left: auto;
+        margin-right: 10%;
+        text-align: center;
+    }
+    .form_box {
+        width: 100%;
+        float: none;
+    }
+    .form_signin{
+        width: 100%;
+        float: none;
+    }
+
+    .stati {
+        float: none;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .stato {
+        width: 95.3%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .stato_utente {
+        width: 97%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .profile_img{
+        width: 97%;
+    }
+    input[type=text], input[type=password], input[type=date], input[type=email], input[type=url] {
+        width: 90%;
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+    textarea {
+        width: 90%;
+        padding: 12px 20px;        
+        margin-left: 5%;
+        margin-right: 5%;
+        font-size: 13px;
+        overflow: hidden;
+    }
+    button{
+        width: 90%;
+        margin-top: 3px;
+        margin-right: auto;
+        margin-left: 5%;
+        overflow: hidden;
+        margin-bottom: 0;
+    }
+    .cancella{
+        width: 90%;
+        margin-top: 3px;
+        margin-right: 5%;
+        margin-left: 5%;
+        margin-bottom: 0;
+        overflow: hidden;
+    }
+    button:hover {
+        background-color: #dacece;
+        color: #e80000;
+    }
+    label{
+        margin: auto;
+        margin-left: 5%;
+    }
+    #utente{
+        float: left;
+        margin-top: 2%;
+        margin-left: 20%;
+        margin-right: auto;
+        overflow: hidden;
+        padding-left: 11%;
+    }
+    .log_in{
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    #titolo_form{
+        float: right;
+        overflow: hidden;        
+        margin-bottom: 0;
+        margin-right: 15%;
+        padding-top: 2.5%;
+        padding-right: 13%;
+        font-size: 15px;    
+    }
+    .elenco{
+       width: 98.2%; 
+       margin-left: auto;
+       margin-right: auto;
+    }
+    .elenco_ul li{
+        width: 71%;
+        display: block;
+        float: none;
+    }
+    .elenco_ul a{
+        width: 100%;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .box_profilo{
+        width: 100%;
+        float: none;
+    }
+    .sign_in{
+        width: 100%;
+        float: none;
+    }
+    #utente2{
+        width: 80%;
+        height: 50%;
+        float: none;
+        margin-left: 10%;
+        margin-right: auto;
     }
 }
 
