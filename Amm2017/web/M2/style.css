@@ -1127,7 +1127,9 @@ label{
 /*Sono immagini decorative tutti quegli elementi che non hanno uno scopo funzionale,
 ma servono solo per decorare la pagina, un esempio possono essere le icone che compaiono prima 
 dei nomi degli utenti, o le icone che stanno affianco ai nomi dei gruppi, mentre le immagini 
-presenti nei "post" degli utenti non sono da considerarsi decorative*/
+presenti nei "post" degli utenti non sono da considerarsi decorative, perchè facendo parte del 
+post dell'utente, aggiungono delle funzionalità precise (ad. esempio il post con una immagine 
+di un utente).*/
 
 .pt::before{
     content: url(Immagini/pt.png);
