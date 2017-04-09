@@ -453,7 +453,8 @@ label{
     #nav_user li h3{
         text-align: center;
         width: 100%;
-        display: none;
+        padding-left: 3.5%;
+        
     }
     .sidebar{
         width: 100%;
@@ -853,9 +854,7 @@ label{
     
     
 }
-@media screen and (min-width: 768px){
-    
-}
+
 @media screen and (min-width: 480px) and (max-width: 768px){
 .contenitore {
     }
@@ -922,7 +921,9 @@ label{
     #nav_user li h3{
         text-align: center;
         width: 100%;
-        display: none;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 1.38%;
     }
     .sidebar{
         width: 100%;
@@ -950,7 +951,6 @@ label{
     }    
     .tp::before, .pt::before,.pp::before, .img_gruppi::before{
         display: none;
-
     }     
     .sidebar h1{
         width: 80%;
