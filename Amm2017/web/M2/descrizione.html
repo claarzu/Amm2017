@@ -16,22 +16,24 @@ and open the template in the editor.
     </head>
     <body>
         <div class="contenitore">
-            <header class="intest">
-                <h1>NerdBook</h1>
-            </header>
             <nav class="navbar">
                 <ul class="nav_bar">
+                    <li id="head"><a href="#NerdBook">NerdBook</a></li>
                     <li><a href="login.html">Login</a></li>
                 </ul>
             </nav>
-            <div>
-                <nav class="elenco">
-                    <ul class="elenco_ul">
-                        <li><a href="#primo">Social Nerdbook</a></li>
-                        <li><a href="#secondo">Abbonamenti</a></li>
-                        <li><a href="#terzo">Modalit&agrave; di pagamento</a></li>
+            
+            <div id="profile">
+                <aside class="sidebar">
+                    <h2>Sezioni Pagina</h2>
+                    <ul class="sidebar_ul">
+                        <li class="elenco"><a href="#primo">Social Nerdbook</a></li>
+                        <li class="elenco"><a href="#secondo">Abbonamenti</a></li>
+                        <li class="elenco"><a href="#terzo">Modalit&agrave; di pagamento</a></li>
                     </ul>
-                </nav>
+                                      
+                </aside> 
+                <br>
                 <article class="principale">
                     <a id="primo"><h2>Social NerdBook</h2></a>
                     <p>NerdBook &egrave; il primo social dedicato al mondo nerd.</p>
@@ -46,7 +48,15 @@ and open the template in the editor.
                     </section>
                 </article>
             </div>
-
         </div>
+        <footer>
+            <p>
+                <a href="http://jigsaw.w3.org/css-validator/check/referer">
+                    <img style="border:0;width:88px;height:31px"
+                        src="http://jigsaw.w3.org/css-validator/images/vcss"
+                        alt="CSS Valido!" >
+                </a>
+            </p>
+        </footer>
     </body>
 </html>
