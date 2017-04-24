@@ -4,6 +4,7 @@
     Author     : claar
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -18,51 +19,42 @@
     </head>
     <body>
         <div class="contenitore">
-            <jsp:include page="navbar.jsp" />            
+            <c:set var="page" value="bacheca" scope="request"/>
+            <nav class="navbar">
+                <ul class="nav_bar">
+                    <li id="head"><a href="descrizione.jsp">NerdBook</a></li>
+                    <li><a href="descrizione.jsp">Descrizione</a></li>
+                    <li><a href="login.jsp">Login</a></li>
+                </ul>
+                <ul id="nav_user">
+                    <li><h3>${iscritto.username}</h3></li>
+                    <li><a href="#logout">Logout</a></li>
+                </ul>
+            </nav>           
             <div id="profile">
                 <jsp:include page="sidebar.jsp" />
                 <br>
                 <div class="stati">
-                    <div class="stato_utente">
-                        <h2 class="ut">Utente</h2>
+                    <c:if test="${!empty negato}">
+                            <c:out value="${negato}"/>
+                        </c:if>
+                    <div class="stato_utente" id="posts">                            
+                        <h2 class="ut">${iscritto.username}</h2>
                         <div>
+                            
+                            <p><i>Stato:</i></p>
+                            <c:forEach var="post" items="${posts}">
                             <span class="stato">
-                                Ciao a tutti!!! Questa &egrave; la mia bacheca!!!
+                                <c:if test="${post.postType == 'TEXT'}">
+                                    <c:out value="${posts}"/>
+                                </c:if>
+                                <c:if test="${post.postType == 'IMAGE'}">
+                                    <img alt="foto post" src="${post.content}">                                        
+                                </c:if>
                             </span>
-                        </div>
-                    </div>
-                    <div class="stato_utente">                        
-                        <h2 class="pt">Pluto</h2>
-                        <div>
-                            <p><i>Stato di Pluto:</i></p>
-                            <span class="stato">
-                                Kaffèèèè1!1!1!1!
-                            </span>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="stato_utente">                        
-                        <h2 class="tp">Topolino</h2>
-                        <div>
-                            <p><i>Stato di Topolino:</i></p>
-                            <span class="stato">
-                                Che bella scheda...
-                                <br>
-                                <img class="profile_img" title="stato" alt="foto stato topolino" src="Immagini/schedamadre.jpg" width="276" height="77">
-                            </span>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="stato_utente">
-                        
-                        <h2 class="pp">Paperino</h2>
-                        <div>
-                            <p><i>Stato di Paperino:</i></p>
-                            <span class="stato">
-                                il sito di <a href="https://unica.it">unica</a>
-                            </span>
-                        </div>
-                    </div>
+                            </c:forEach>
+                        </div>                            
+                    </div>           
                 </div>
             </div>           
         </div>

@@ -6,6 +6,7 @@
 package amm2017;
 
 import amm2017.Classi.*;
+import java.util.List;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -20,8 +21,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author claar
  */
-@WebServlet (name="Bacheca", urlPatterns = {"/Bacheca"})
-
+@WebServlet (name="Bacheca", urlPatterns = {"/bacheca.html"})
 public class Bacheca extends HttpServlet {
 
     /**
@@ -36,17 +36,29 @@ public class Bacheca extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Bacheca</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Bacheca at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        
+        //acquisizione informazioni utente
+        String user = request.getParameter("user");
+        
+        int userId;
+        
+        if (user != null){            
+            userId = Integer.parseInt(user);
+        } else {            
+            userId = 0;
+        }
+        
+        Iscritto iscritto = IscrittoFactory.getInstance().getIscrittoById(userId);
+        
+        if (iscritto != null){
+            request.setAttribute("iscritto", iscritto);
+            
+            List<Post> posts = PostFactory.getInstance().getPostList(iscritto);
+            request.setAttribute("posts", posts);
+            
+            request.getRequestDispatcher("bacheca.jsp").forward(request, response);
+        } else{
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
     }
 

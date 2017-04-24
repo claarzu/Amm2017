@@ -19,7 +19,17 @@
     </head>
     <body>
         <div class="contenitore">            
-            <jsp:include page="navbar.jsp" />            
+            <nav class="navbar">
+                <ul class="nav_bar">
+                    <li id="head"><a href="#NerdBook">NerdBook</a></li>
+                    <li><a href="descrizione.jsp">Descrizione</a></li>
+                    <li><a href="login.jsp">Login</a></li>
+                </ul>
+                <ul id="nav_user">
+                    <li><h3>${iscritto.username}</h3></li>
+                    <li><a href="#logout">Logout</a></li>
+                </ul>
+            </nav>            
             <div id="profile">
                 <jsp:include page="sidebar.jsp" />
                 <br>
@@ -27,24 +37,30 @@
                     <div class="sign_in">
                         <img id="utente2" alt="immagine del profilo" src="Immagini/utenti.png">
                     </div>
+                    <c:if test="${!empty accesso}">
+                            <c:out value="${accesso}"/>
+                        </c:if>
                     <div class="form_box">
                         <form class="form_signin" action="sighin.html" method="post">
 
-                            <label for="nome">${iscritto.getNome()}</label>                                
-                                <input type="text" id="nome" name="name" value="mario nome" required>
+                            <label for="nome">Nome</label>                                
+                                <input type="text" id="nome" name="nome" value="${iscritto.nome}" required>
                                 <br>
                             <label for="cognome">Cognome</label>
-                                <input type="text" id="cognome" name="cognome" value="rossi" required>
+                                <input type="text" id="cognome" name="cognome" value="${iscritto.cognome}" required>
                                 <br>
                             <label for="url_img">Indirizzo immagine profilo</label>
-                                <input type="url" id="url_img" name="url_img" placeholder="Inserisci url" required>
+                            <input type="url" id="url_img" name="url_img" value="${iscritto.urlImmProfilo}" placeholder="Inserisci url" required>
                                 <br>
                             <label for="frase">Frase di Presentazione</label>
-                                <textarea rows="7" cols="20" id="frase" name="frase" placeholder="Inserisci frase" required></textarea>
+                                <textarea rows="7" cols="20" id="frase" name="frase" value="${iscritto.frase}" placeholder="Inserisci frase" required></textarea>
                                 <br>
                             <label for="data">Data di Nascita</label>
                             <!--lo strumento di validazione mi da un warning, in quanto il tipo di input "date" non è supportato da tutti i browser -->
-                                <input type="date" id="data" name="01/01/1990" required> 
+                                <input type="date" id="data" name="01/01/1990" value="${iscritto.nascita}" required> 
+                                <br>
+                            <label for="username">Username</label>                                
+                                <input type="text" id="username" name="username" value="${iscritto.username}" required>
                                 <br>
                             <label for="psw">Password</label>
                                 <input type="password" id="psw" name="psw" value="oscurato" placeholder="Inserisci password" required>
