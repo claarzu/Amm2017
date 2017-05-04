@@ -38,7 +38,13 @@ public class Login extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        HttpSession session = request.getSession(true);
+        HttpSession session = request.getSession();
+       
+        if(request.getParameter("logout")!=null){
+            session.invalidate();
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+            return;
+        }
         
         if (request.getParameter("Submit")!= null){
             
@@ -50,16 +56,19 @@ public class Login extends HttpServlet {
             
             for (Iscritto i : listaIscritti){
                 if(i.getUsername().equals(username) && i.getPsw().equals(password)){
-                    session.setAttribute("utente", i);
-                    
+                    int loggedUserId = IscrittoFactory.getInstance().getIdByUserAndPassword(username, password);
+                    if (loggedUserId != -1){
+                        session.setAttribute("loggedIn", true);
+                        session.setAttribute("loggedUserId", loggedUserId);
+                    }
                     if (i instanceof Iscritto){
                         
                     } if (i.getNome().equals("") || i.getCognome().equals("") || i.getFrase().equals("") || i.getNascita().equals("")){
-                        request.setAttribute("iscritto", i);
-                        request.getRequestDispatcher("profilo.jsp").forward(request, response); 
-                       } else{
-                            request.setAttribute("iscritto", i);
-                            request.getRequestDispatcher("bacheca.jsp").forward(request, response);
+                        
+                        request.getRequestDispatcher("Profilo").forward(request, response); 
+                       } else{                           
+                            /*request.setAttribute("iscritto", i);*/                            
+                            request.getRequestDispatcher("Bacheca").forward(request, response);
                          }
                 }                
             }
@@ -69,6 +78,7 @@ public class Login extends HttpServlet {
                     request.getRequestDispatcher("login.jsp").forward(request, response);
                 }
             }
+           
         }
         request.getRequestDispatcher("login.jsp").forward(request, response);
     }

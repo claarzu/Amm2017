@@ -20,9 +20,9 @@
         <aside class="sidebar">
             <h1>Persone</h1>
             <ul class="sidebar_ul">
-                <li class="pt"><a href="#Pluto">Pluto</a></li>
-                <li class="tp"><a href="#Topolino">Topolino</a></li>
-                <li class="pp"><a href="#Paperino">Paperino</a></li>
+                <li class="pt"><a href="Bacheca?user=1">Pluto</a></li>
+                <li class="tp"><a href="Bacheca?user=2">Topolino</a></li>
+                <li class="pp"><a href="Bacheca?user=3">Paperino</a></li>
             </ul>
             <br>
             <h1>Gruppi</h1>

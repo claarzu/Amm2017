@@ -12,13 +12,14 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
+        <c:set var="title" value="Login" scope="request"/>
         <div class="contenitore">            
             <nav class="navbar">
                 <ul class="nav_bar">
                     <li id="head"><a href="descrizione.jsp">NerdBook</a></li>
                     <li><a href="descrizione.jsp">Descrizione</a></li>
-                    <li><a href="profilo.jsp">Profilo</a></li>
-                    <li><a href="bacheca.jsp">Bacheca</a></li>
+                    <li><a href="Profilo">Profilo</a></li>
+                    <li><a href="Bacheca">Bacheca</a></li>
                 </ul>
             </nav>
             <br>
@@ -37,7 +38,7 @@
                         <br>
                         <button class="conferma" name="Submit" type="submit">Login</button>
                         <button class="cancella" type="reset">Cancella Campi</button>
-                    <label for="errore">
+                    <label id="invalidData" for="errore">
                         <c:if test="${!empty errore}">
                             <c:out value="${errore}"/>
                         </c:if>

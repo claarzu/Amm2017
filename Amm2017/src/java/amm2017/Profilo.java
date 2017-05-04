@@ -37,53 +37,62 @@ public class Profilo extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        HttpSession session = request.getSession(false);
-        Iscritto utente = (Iscritto)session.getAttribute("utente");
+       HttpSession session = request.getSession(false);
         
-        
-        if (utente != null){
-            session.setAttribute("logged", true);
-            request.getRequestDispatcher("profilo.jsp").forward(request, response);
-        } else {
-
-            request.setAttribute("accesso", "non sei autorizzato ad accedere a questa pagina, si prega di loggarsi");
-            request.getRequestDispatcher("profilo.jsp").forward(request, response);
-        }
-        
-        Iscritto iscritto = new Iscritto();       
-        
-        if (request.getParameter("conferma") != null){
+        if (session != null && session.getAttribute("loggedIn")!=null &&
+            session.getAttribute("loggedIn").equals(true)){
             
-            String username = request.getParameter("username");
-            String password = request.getParameter("psw");
-            String c_password = request.getParameter("c_psw");
-            String nome = request.getParameter("nome");
-            String cognome = request.getParameter("cognome");
-            String urlImmProfilo = request.getParameter("url_img");
-            String nascita = request.getParameter("data");
-            String frase = request.getParameter("frase");
-            String user = request.getParameter(nome);
-            int userId;
+            String user = request.getParameter("user");
+            int userID;
+            
             if (user != null){
-                userId = Integer.parseInt(user);
+                userID = Integer.parseInt(user);
+            } else {
+                Integer loggedUserId = (Integer)session.getAttribute("loggedUserId");
+                userID = loggedUserId;
             }
             
-            iscritto.setNome(nome);
-            iscritto.setCognome(cognome);
-            iscritto.setUrlImmProfilo(urlImmProfilo);
-            iscritto.setFrase(frase);
-            iscritto.setNascita(nascita);
-            iscritto.setUsername(username);
-            if (password.equals(c_password)){
+            Iscritto iscritto = IscrittoFactory.getInstance().getIscrittoById(userID);
+            
+            if (iscritto != null){
+                request.setAttribute("iscritto", iscritto);
+                request.getRequestDispatcher("profilo.jsp").forward(request, response);
+            } else{
+                request.setAttribute("iscritto", "");
+                
+                request.getRequestDispatcher("profilo.jsp").forward(request, response);
+ 
+            }        
+            
+            if (request.getParameter("conferma") != null){
+                
+                String nome = request.getParameter("nome");
+                String cognome = request.getParameter("cognome");
+                String urlImmProfilo = request.getParameter("url_img");
+                String frase = request.getParameter("frase");
+                String nascita = (String)request.getParameter("data");
+                String username = request.getParameter("username");
+                String password = request.getParameter("psw");
+                String c_password = request.getParameter("c_psw");
+                
+                iscritto.setNome(nome);
+                iscritto.setCognome(cognome);
+                iscritto.setUrlImmProfilo(urlImmProfilo);
+                iscritto.setFrase(frase);
+                iscritto.setNascita(nascita);
+                iscritto.setUsername(username);
                 iscritto.setPsw(password);
                 iscritto.setC_Psw(c_password);
-            } else {                
-                request.getRequestDispatcher("profilo.jsp").forward(request, response);
-            }          
-            request.getRequestDispatcher("bacheca.jsp").forward(request, response);
+                
+                request.setAttribute("iscritto", iscritto);               
+                request.setAttribute("avviso", true);
+                request.getRequestDispatcher("profilo.jsp").forward(request, response);               
+            } 
+        } else{
+            request.setAttribute("invalidData", true);
+            request.getRequestDispatcher("profilo.jsp").forward(request, response);
         }
-        
-        
+ 
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

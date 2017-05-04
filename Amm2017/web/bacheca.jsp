@@ -18,8 +18,9 @@
         <link rel="stylesheet" type="text/css" href="style.css" media="screen">
     </head>
     <body>
+        <c:set var="page" value="Bacheca" scope="request"/>
         <div class="contenitore">
-            <c:set var="page" value="bacheca" scope="request"/>
+            
             <nav class="navbar">
                 <ul class="nav_bar">
                     <li id="head"><a href="descrizione.jsp">NerdBook</a></li>
@@ -34,26 +35,55 @@
             <div id="profile">
                 <jsp:include page="sidebar.jsp" />
                 <br>
-                <div class="stati">
-                    <c:if test="${!empty negato}">
-                            <c:out value="${negato}"/>
-                        </c:if>
-                    <div class="stato_utente" id="posts">                            
-                        <h2 class="ut">${iscritto.username}</h2>
-                        <div>
-                            
-                            <p><i>Stato:</i></p>
-                            <c:forEach var="post" items="${posts}">
-                            <span class="stato">
-                                <c:if test="${post.postType == 'TEXT'}">
-                                    <c:out value="${posts}"/>
+                <div id="nuovo_stato">
+                    <form action="Bacheca" method="post">
+                        <div id="postType">                            
+                            <c:if test="${invalidData == true}">
+                                <h2 class="invalidData">Accesso non consentito</h2>
+                            </c:if>                            
+                            <br>
+                            <div>
+                            <label for="textType">Post di Testo</label>
+                            <input type="radio" name="textType" value="textType" id="textType">
+                            </div>
+                            <div>
+                                <label for="imgType">Post con Foto</label>
+                                <input type="radio" name="imgType" value="imgType" id="imgType">
+                            </div>
+                        </div>
+                        <div id="postContent">
+                            <div>
+                                <label for="textPost">Testo</label>
+                                <textarea name="textPost" id="textPost"></textarea>
+                            </div>
+                            <div>
+                                <label for="imgPost">File d'immagine</label>
+                                <input type="file" name="imgPost" id="imgPost">
+                            </div>
+                        </div>
+                        <button type="submit" name="Submit">Inserisci Post</button>
+                        <label for="aggiunto">${aggiunto}</label>
+                    </form>
+                    <br>
+                </div>
+                
+                <div class="stati">                   
+                    <div class="stato_utente" id="stati"> 
+                                                    
+                        <h2 class="ut">${iscritto.nome}</h2>
+                        <c:forEach var="stato" items="${listaStati}">
+                        <div id="stato">                            
+                            <p><i>Stato:</i></p>                           
+                            <span class="stato">                               
+                                <c:if test="${stato.postType == 'TEXT'}">
+                                    ${stato.content}
                                 </c:if>
-                                <c:if test="${post.postType == 'IMAGE'}">
-                                    <img alt="foto post" src="${post.content}">                                        
+                                <c:if test="${stato.postType == 'IMAGE'}">
+                                    <img class="profile_img" title="stato" alt="foto post" src="${stato.content}" width="276" height="77">
                                 </c:if>
-                            </span>
-                            </c:forEach>
-                        </div>                            
+                            </span>                            
+                        </div>
+                        </c:forEach>                            
                     </div>           
                 </div>
             </div>           

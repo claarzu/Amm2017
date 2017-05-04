@@ -27,7 +27,9 @@
                 </ul>
                 <ul id="nav_user">
                     <li><h3>${iscritto.username}</h3></li>
-                    <li><a href="#logout">Logout</a></li>
+                    <c:if test="${empty param.user}">
+                    <li><a href="Login?logout=1">Logout</a></li>
+                    </c:if>
                 </ul>
             </nav>            
             <div id="profile">
@@ -35,14 +37,16 @@
                 <br>
                 <div class="box_profilo">
                     <div class="sign_in">
-                        <img id="utente2" alt="immagine del profilo" src="Immagini/utenti.png">
+                        <img id="utente2" alt="immagine del profilo" src="${iscritto.urlImmProfilo}">
                     </div>
-                    <c:if test="${!empty accesso}">
-                            <c:out value="${accesso}"/>
-                        </c:if>
+                    
                     <div class="form_box">
-                        <form class="form_signin" action="sighin.html" method="post">
-
+                        <form class="form_signin" action="Profilo" method="POST">
+                            <c:if test="${invalidData == true}">
+                                <label id="invalidData">Accesso non consentito</label>
+                                <br>
+                            </c:if>
+                            <br>
                             <label for="nome">Nome</label>                                
                                 <input type="text" id="nome" name="nome" value="${iscritto.nome}" required>
                                 <br>
@@ -53,11 +57,11 @@
                             <input type="url" id="url_img" name="url_img" value="${iscritto.urlImmProfilo}" placeholder="Inserisci url" required>
                                 <br>
                             <label for="frase">Frase di Presentazione</label>
-                                <textarea rows="7" cols="20" id="frase" name="frase" value="${iscritto.frase}" placeholder="Inserisci frase" required></textarea>
+                                <textarea rows="7" cols="20" id="frase" name="frase" value="${iscritto.frase}" placeholder="Inserisci frase" required>${iscritto.frase}</textarea>
                                 <br>
                             <label for="data">Data di Nascita</label>
                             <!--lo strumento di validazione mi da un warning, in quanto il tipo di input "date" non è supportato da tutti i browser -->
-                                <input type="date" id="data" name="01/01/1990" value="${iscritto.nascita}" required> 
+                                <input type="date" id="data" name="data" value="${iscritto.nascita}" required> 
                                 <br>
                             <label for="username">Username</label>                                
                                 <input type="text" id="username" name="username" value="${iscritto.username}" required>
@@ -70,6 +74,11 @@
                                 <br>
                             <button id="conferma" type="submit" name="conferma">Aggiorna</button>
                             <button id="cancella" type="reset" name="cancella">Cancella Campi</button> 
+                            
+                                <c:if test="${avviso == true}">
+                                    <label for="avviso">Dati aggiornati</label> 
+                                </c:if>                                
+                            
                         </form>
                     </div>
                 </div>

@@ -132,6 +132,35 @@ footer{
     margin-right: auto;
     width: 84%;
 }
+#nuovo_stato{
+    float: right;
+    width: 87.5%;
+}
+#postType{
+    padding-top: 10px;
+    border-bottom: 2px solid #aaaaaa;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+#postType div{
+    display: inline-block;
+    text-align: center; 
+    margin-left: 26%;
+}
+#postType label{
+ 
+}
+input[type=radio]{
+
+}
+
+#postContent{
+    padding-top: 5px;
+    border-bottom: 2px solid #aaaaaa;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+
 
 /*
 *
@@ -334,6 +363,12 @@ label{
     margin-left: 18%;
 }
 
+#invalidData{
+    font-family: "Arial", serif;
+    font-size: 30px;
+    color: #b30000;
+}
+
 /**
 *
 ---media queries---
@@ -524,6 +559,41 @@ label{
         float: none;
         margin-left: 10%;
         margin-right: auto;
+    }
+    #nuovo_stato{
+        float: right;
+        width: 100%;
+    }
+    .invalidData{
+        text-align: center;
+    }
+    #postType{
+        padding-top: 10px;
+        border-bottom: 2px solid #aaaaaa;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+    }
+    #postType div{
+        display: inline-block;
+        width: 40%;
+        text-align: center;
+    }
+    #postType label{
+
+    }
+    input[type=file]{
+        width: 90%;
+        margin-top: 3px;
+        margin-right: auto;
+        margin-left: 5%;
+        overflow: hidden;
+        margin-bottom: 0;
+    }
+    #postContent{
+        padding-top: 5px;
+        border-bottom: 2px solid #aaaaaa;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
     }
 }
 
@@ -749,6 +819,11 @@ label{
     .principale{
         width: 79.8%;
     }
+    #nuovo_stato{
+        float: right;
+        width: 81%;
+    }
+    
     
 }
 
@@ -955,6 +1030,42 @@ label{
         float: none;
         margin-left: 10%;
         margin-right: auto;
+    }
+    
+    #nuovo_stato{
+        float: right;
+        width: 100%;
+    }
+    .invalidData{
+        text-align: center;
+    }
+    #postType{
+        padding-top: 10px;
+        border-bottom: 2px solid #aaaaaa;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+    }
+    #postType div{
+        display: inline-block;
+        width: 40%;
+        text-align: center;
+    }
+    #postType label{
+
+    }
+    input[type=file]{
+        width: 90%;
+        margin-top: 3px;
+        margin-right: auto;
+        margin-left: 5%;
+        overflow: hidden;
+        margin-bottom: 0;
+    }
+    #postContent{
+        padding-top: 5px;
+        border-bottom: 2px solid #aaaaaa;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
     }
 }
 

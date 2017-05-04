@@ -5,17 +5,19 @@
  */
 package amm2017;
 
-import amm2017.Classi.*;
-import java.util.List;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import javax.servlet.ServletException;
+import amm2017.Classi.Iscritto;
+import amm2017.Classi.IscrittoFactory;
+import amm2017.Classi.Post;
+import amm2017.Classi.PostFactory;
 import javax.servlet.annotation.WebServlet;
+import java.io.IOException;
+import java.util.List;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 
 /**
  *
@@ -38,28 +40,85 @@ public class Bacheca extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         //acquisizione informazioni utente
-        String user = request.getParameter("user");
+        HttpSession session = request.getSession(false);
         
-        int userId;
-        
-        if (user != null){            
-            userId = Integer.parseInt(user);
-        } else {            
-            userId = 0;
-        }
-        
-        Iscritto iscritto = IscrittoFactory.getInstance().getIscrittoById(userId);
-        
-        if (iscritto != null){
-            request.setAttribute("iscritto", iscritto);
+        if (session != null && session.getAttribute("loggedIn")!=null &&
+           session.getAttribute("loggedIn").equals(true)){
             
-            List<Post> posts = PostFactory.getInstance().getPostList(iscritto);
-            request.setAttribute("posts", posts);
+            String user = request.getParameter("user");
+            int userID;
             
+            if (user != null){
+                userID = Integer.parseInt(user);
+            } else {
+                Integer loggedUserId = (Integer)session.getAttribute("loggedUserId");
+                userID = loggedUserId;                       
+            }
+            
+            Iscritto iscritto = IscrittoFactory.getInstance().getIscrittoById(userID);
+            
+            if (iscritto != null){
+                request.setAttribute("iscritto", iscritto);
+
+                List<Post> listaStati = PostFactory.getInstance().getPostList(iscritto);
+                request.setAttribute("listaStati", listaStati);    
+
+                request.getRequestDispatcher("bacheca.jsp").forward(request, response);
+            } else {
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            }
+            
+        } else {
+            request.setAttribute("invalidData", true); 
             request.getRequestDispatcher("bacheca.jsp").forward(request, response);
-        } else{
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
+        
+        if (session != null && session.getAttribute("loggedIn")!=null &&
+           session.getAttribute("loggedIn").equals(true)){
+            
+            String user = request.getParameter("user");
+            int userID;
+            boolean inserito = false;
+            if (user != null){
+                userID = Integer.parseInt(user);
+            } else {
+                Integer loggedUserId = (Integer)session.getAttribute("loggedUserId");
+                userID = loggedUserId;                       
+            }
+            
+            Iscritto iscritto = IscrittoFactory.getInstance().getIscrittoById(userID);
+        
+            if (request.getParameter("Submit")!= null){
+
+                String post = request.getParameter("textType");
+                String post2 = request.getParameter("imgType");
+                String contentText = request.getParameter("textPost");
+                String contentImg = request.getParameter("imgPost");
+
+                Post listaStati = new Post();
+
+                if (post != null){
+                    listaStati.setContent(contentText);                    
+                    listaStati.setUser(iscritto); 
+                    inserito = true;
+                }
+                if (post2 != null){
+                    listaStati.setContent(contentImg);
+                    listaStati.setUser(iscritto);
+                    inserito = true;
+                }
+                
+                if(inserito == true){
+                    request.setAttribute("listaStati", listaStati);
+                    request.setAttribute("aggiunto", "post inserito correttamente");
+                    request.getRequestDispatcher("bacheca.jsp").forward(request, response);
+                }
+
+            }
+        
+        }
+        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
