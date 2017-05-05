@@ -20,7 +20,7 @@
     <body>
         <nav class="navbar">
                 <ul class="nav_bar">
-                    <li id="head"><a href="#NerdBook">NerdBook</a></li>
+                    <li id="head"><a href="descrizione.jsp">NerdBook</a></li>
                     <li><a href="descrizione.jsp">Descrizione</a></li>
                     <li><a href="login.jsp">Login</a></li>
                 </ul>

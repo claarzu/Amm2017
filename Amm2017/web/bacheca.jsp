@@ -29,14 +29,16 @@
                 </ul>
                 <ul id="nav_user">
                     <li><h3>${iscritto.username}</h3></li>
-                    <li><a href="#logout">Logout</a></li>
+                    <c:if test="${empty param.user}">
+                        <li><a href="Login?logout=1">Logout</a></li>
+                    </c:if>
                 </ul>
             </nav>           
             <div id="profile">
                 <jsp:include page="sidebar.jsp" />
                 <br>
                 <div id="nuovo_stato">
-                    <form action="Bacheca" method="post">
+                    <form action="Bacheca" method="POST">
                         <div id="postType">                            
                             <c:if test="${invalidData == true}">
                                 <h2 class="invalidData">Accesso non consentito</h2>
@@ -54,15 +56,28 @@
                         <div id="postContent">
                             <div>
                                 <label for="textPost">Testo</label>
-                                <textarea name="textPost" id="textPost"></textarea>
+                                <textarea name="textPost" id="textPost" value="${stato.content}"></textarea>
                             </div>
                             <div>
                                 <label for="imgPost">File d'immagine</label>
-                                <input type="file" name="imgPost" id="imgPost">
+                                <input type="file" name="imgPost" id="imgPost"
+                                       value="${stato.content}">
                             </div>
                         </div>
                         <button type="submit" name="Submit">Inserisci Post</button>
-                        <label for="aggiunto">${aggiunto}</label>
+                        <c:if test="${bottone == true}">
+                            <button type="submit" name="Submit2">Conferma</button>                                   
+                            <br>
+                        </c:if>
+                        <c:if test="${avviso == true}">
+                            <label id="avviso">Hai aggiunto un post sulla tua bacheca.</label>
+                                    Post Inserito da: "${iscritto.nome}" - nella bacheca di: "${iscritto.nome}"                                    
+                            <br>
+                        </c:if> 
+                        <c:if test="${avviso2 == true}">
+                            <label id="avviso2">Hai scritto sulla bacheca di: [${iscritto.nome}]</label>
+                            <br>
+                        </c:if> 
                     </form>
                     <br>
                 </div>

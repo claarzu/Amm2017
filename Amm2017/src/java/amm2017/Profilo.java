@@ -56,43 +56,43 @@ public class Profilo extends HttpServlet {
             
             if (iscritto != null){
                 request.setAttribute("iscritto", iscritto);
-                request.getRequestDispatcher("profilo.jsp").forward(request, response);
+                
+                if (request.getParameter("conferma") != null){
+
+                    String nome = request.getParameter("nome");
+                    String cognome = request.getParameter("cognome");
+                    String urlImmProfilo = request.getParameter("url_img");
+                    String frase = request.getParameter("frase");
+                    String nascita = (String)request.getParameter("data");
+                    String username = request.getParameter("username");
+                    String password = request.getParameter("psw");
+                    String c_password = request.getParameter("c_psw");                
+                    
+                    if (iscritto instanceof Iscritto){
+                        iscritto.setNome(nome);
+                        iscritto.setCognome(cognome);
+                        iscritto.setUrlImmProfilo(urlImmProfilo);
+                        iscritto.setFrase(frase);
+                        iscritto.setNascita(nascita);
+                        iscritto.setUsername(username);
+                        iscritto.setPsw(password);
+                        iscritto.setC_Psw(c_password);
+                        
+                        request.setAttribute("avviso", true);   
+                        request.getRequestDispatcher("profilo.jsp").forward(request, response); 
+                    }                
+                }
+                
+                request.getRequestDispatcher("profilo.jsp").forward(request, response);                
             } else{
-                request.setAttribute("iscritto", "");
-                
-                request.getRequestDispatcher("profilo.jsp").forward(request, response);
- 
-            }        
-            
-            if (request.getParameter("conferma") != null){
-                
-                String nome = request.getParameter("nome");
-                String cognome = request.getParameter("cognome");
-                String urlImmProfilo = request.getParameter("url_img");
-                String frase = request.getParameter("frase");
-                String nascita = (String)request.getParameter("data");
-                String username = request.getParameter("username");
-                String password = request.getParameter("psw");
-                String c_password = request.getParameter("c_psw");
-                
-                iscritto.setNome(nome);
-                iscritto.setCognome(cognome);
-                iscritto.setUrlImmProfilo(urlImmProfilo);
-                iscritto.setFrase(frase);
-                iscritto.setNascita(nascita);
-                iscritto.setUsername(username);
-                iscritto.setPsw(password);
-                iscritto.setC_Psw(c_password);
-                
-                request.setAttribute("iscritto", iscritto);               
-                request.setAttribute("avviso", true);
-                request.getRequestDispatcher("profilo.jsp").forward(request, response);               
-            } 
+                request.setAttribute("iscritto", "");                
+                request.getRequestDispatcher("profilo.jsp").forward(request, response); 
+            }     
         } else{
             request.setAttribute("invalidData", true);
             request.getRequestDispatcher("profilo.jsp").forward(request, response);
         }
- 
+       
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

@@ -46,6 +46,12 @@
                                 <label id="invalidData">Accesso non consentito</label>
                                 <br>
                             </c:if>
+                            <c:if test="${avviso == true}">
+                                    <label id="avviso">Dati aggiornati.</label>
+                                    Ricorda le nuove credenziali:
+                                    Username: "${iscritto.username}" - Password: "${iscritto.psw}"
+                                    <br>
+                            </c:if> 
                             <br>
                             <label for="nome">Nome</label>                                
                                 <input type="text" id="nome" name="nome" value="${iscritto.nome}" required>
@@ -75,9 +81,7 @@
                             <button id="conferma" type="submit" name="conferma">Aggiorna</button>
                             <button id="cancella" type="reset" name="cancella">Cancella Campi</button> 
                             
-                                <c:if test="${avviso == true}">
-                                    <label for="avviso">Dati aggiornati</label> 
-                                </c:if>                                
+                                                               
                             
                         </form>
                     </div>

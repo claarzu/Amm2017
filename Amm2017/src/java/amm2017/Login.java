@@ -67,7 +67,7 @@ public class Login extends HttpServlet {
                         
                         request.getRequestDispatcher("Profilo").forward(request, response); 
                        } else{                           
-                            /*request.setAttribute("iscritto", i);*/                            
+                                                       
                             request.getRequestDispatcher("Bacheca").forward(request, response);
                          }
                 }                
