@@ -76,17 +76,13 @@ public class Login extends HttpServlet {
             if (username != null && password != null){
                 int loggedUserId = IscrittoFactory.getInstance().getIdByUserAndPassword(username, password);
                 
-                if(loggedUserId != -1){
-                    session.setAttribute("loggedIn", true);
-                    session.setAttribute("loggedUserId", loggedUserId);
-                    request.getRequestDispatcher("Bacheca").forward(request, response);
-                } else{
-                    request.setAttribute("errore", "credenziali di accesso errate");
-                    request.getRequestDispatcher("login.jsp").forward(request, response);
-                }
                 
+                session.setAttribute("loggedIn", true);
+                session.setAttribute("loggedUserId", loggedUserId);
+                request.getRequestDispatcher("Bacheca").forward(request, response);
             }
-                
+                request.setAttribute("errore", "credenziali di accesso errate");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
         }
 
         /*
