@@ -64,9 +64,19 @@ public class Bacheca extends HttpServlet {
 
                 List<Post> listaStati = PostFactory.getInstance().getPostList(iscritto);     
                 
-                request.setAttribute("listaStati", listaStati); 
+                request.setAttribute("listaStati", listaStati);                 
+           
                 
-                if (request.getParameter("Submit")!= null){
+                request.getRequestDispatcher("bacheca.jsp").forward(request, response);       
+            } else {
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            }   
+        } else {
+            request.setAttribute("invalidData", true); 
+            request.getRequestDispatcher("bacheca.jsp").forward(request, response);
+        }
+        
+         /*    if (request.getParameter("Submit")!= null){
 
                     String post = (String)request.getParameter("textType");
                     String post2 = (String)request.getParameter("imgType");
@@ -104,18 +114,7 @@ public class Bacheca extends HttpServlet {
                     request.setAttribute("avviso2", true);
                     request.getRequestDispatcher("bacheca.jsp").forward(request, response);
                 }
-                    
-                
-                request.getRequestDispatcher("bacheca.jsp").forward(request, response);       
-            } else {
-                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            }   
-        } else {
-            request.setAttribute("invalidData", true); 
-            request.getRequestDispatcher("bacheca.jsp").forward(request, response);
-        }
-        
-        
+                */    
        
         
 

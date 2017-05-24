@@ -15,7 +15,7 @@ public class GruppiFactory {
         }
         return singleton;
     }
-    
+    private String connectionString;
     private ArrayList<Gruppi> listaGruppi = new ArrayList<Gruppi>();
     
     private GruppiFactory(){
@@ -62,4 +62,14 @@ public class GruppiFactory {
         }
         return listaGruppi;
     }
+
+    public String getConnectionString() {
+        return connectionString;
+    }
+
+    public void setConnectionString(String connectionString) {
+        this.connectionString = connectionString;
+    }
+    
+    
 }

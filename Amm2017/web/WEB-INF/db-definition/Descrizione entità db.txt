@@ -1,0 +1,95 @@
+ci sono 3 entità:
+Iscritti, Post, Gruppi, Amici
+
+Attributi [Iscritti]{
+	id,
+	nome,
+	cognome,
+	urlImmProfilo,
+	frase,
+	data,
+	username,
+	password, 
+	c_password
+}
+Attributi di relazione [Iscritti]{
+	chiave esterna "gruppo" riferita "all'id" del gruppo
+}
+
+Attributi [Post]{
+	id,
+	nome,
+	contenuto
+}
+Attributi di relazione [Post]{
+	chiave esterna "gruppo" riferita "all'id" del gruppo
+	chiave esterna "tipo" riferita "all'id" del postType
+	chiave esterna "autore" riferita "all'id" del iscritto
+}
+
+Attributi [postType]{
+	id,
+	nome
+}
+
+Attributi [Gruppi]{
+	id,
+	nome,
+}
+Attributi di relazione [Gruppo]{	
+	chiave esterna "membro" riferita "all'id" del iscritto
+}
+
+Attributi [Amici]{
+	
+}
+Attributi di relazione [Amici]{	
+	chiave esterna "follower" riferita "all'id" del iscritto
+	chiave esterna "followed" riferita "all'id" del iscritto
+}
+
+
+relazioni per l'entità Iscritti:
+
+per ogni iscritto quanti post? molti
+per ogni post quanti iscritti? 1
+Iscritti->Post : uno a molti  Cardinalità: 1
+
+per ogni Iscritto quanti gruppi? molti
+per ogni gruppo quanti iscritti? molti
+Iscritti->Gruppi : molti a molti
+
+
+
+relazioni per l'entità Post:
+
+per ogni post quanti iscritti? 1
+per ogni iscritto quanti post? molti
+Post->Iscritti : uno a molti Cardinalità: 1
+
+per ogni post quanti gruppi? 1
+per ogni gruppo quanti post? molti
+Post->Gruppi : uno a molti Cardinalità: 1
+
+per ogni post quanti postType? molti
+per ogni postType quanti post? 1
+Post->postType : uno a molti Cardinalità: 1
+
+
+
+relazioni per l'entità Gruppi:
+
+per ogni gruppo quanti iscritti? molti
+per ogni iscritto quanti gruppi? molti
+Gruppi->Iscritti : molti a molti
+
+per ogni gruppo quanti post? molti
+per ogni post quanti gruppi? 1
+Gruppi->Post : uno a molti Cardinalità: 1
+
+
+
+relazioni per l'entità Amici:
+
+per ogni iscritto quanti amici? molti
+per ogni amico quanti iscritti? molti

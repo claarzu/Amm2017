@@ -25,92 +25,90 @@ public class IscrittoFactory {
         return singleton;
     }
     
+    private String connectionString;
     
-    private ArrayList<Iscritto> listaIscritti = new ArrayList<Iscritto>();
-    
-    private IscrittoFactory(){
-        //Creazione Iscritti
-       
-        Iscritto iscritto1 = new Iscritto();
-        iscritto1.setId(0);
-        iscritto1.setNome("Utente");
-        iscritto1.setCognome("Amm");
-        iscritto1.setUrlImmProfilo("http://localhost:8080/Amm2017/Immagini/utenti.png");
-        iscritto1.setFrase("");
-        iscritto1.setNascita("10/08/1942");
-        iscritto1.setUsername("userrr");
-        iscritto1.setPsw("123");
-        iscritto1.setC_Psw("123");
-        
-        Iscritto iscritto2 = new Iscritto();
-        iscritto2.setId(1);
-        iscritto2.setNome("Pluto");
-        iscritto2.setCognome("Disney");
-        iscritto2.setUrlImmProfilo("http://localhost:8080/Amm2017/Immagini/pt.png");
-        iscritto2.setFrase("Il mio social");
-        iscritto2.setNascita("30/04/1931");
-        iscritto2.setUsername("cane");
-        iscritto2.setPsw("222");
-        iscritto2.setC_Psw("222");
-        
-        Iscritto iscritto3 = new Iscritto();
-        iscritto3.setId(2);
-        iscritto3.setNome("Topolino");
-        iscritto3.setCognome("Disney");
-        iscritto3.setUrlImmProfilo("http://localhost:8080/Amm2017/Immagini/tp.png");
-        iscritto3.setFrase("Il mio social");
-        iscritto3.setNascita("18/11/1928");
-        iscritto3.setUsername("topo");
-        iscritto3.setPsw("333");
-        iscritto3.setC_Psw("333");
-        
-        Iscritto iscritto4 = new Iscritto();
-        iscritto4.setId(3);
-        iscritto4.setNome("Paperino");
-        iscritto4.setCognome("Disney");
-        iscritto4.setUrlImmProfilo("http://localhost:8080/Amm2017/Immagini/pp.png");
-        iscritto4.setFrase("Il mio social");
-        iscritto4.setNascita("09/06/1934");
-        iscritto4.setUsername("papera");
-        iscritto4.setPsw("111");
-        iscritto4.setC_Psw("111");
-        
-        
-        listaIscritti.add(iscritto1);
-        listaIscritti.add(iscritto2);
-        listaIscritti.add(iscritto3);
-        listaIscritti.add(iscritto4);
+    public void setConnectionString(String s) {
+        this.connectionString = s;
     }
     
-    
+    public String getConnectionString() {
+        return this.connectionString;
+    }
+
+    private IscrittoFactory(){       
+    }
     
     public Iscritto getIscrittoById(int id){
-        for (Iscritto iscritto : this.listaIscritti){
-            if (iscritto.getId() == id){
-                return iscritto;
+        
+        try{
+            Connection conn = DriverManager.getConnection(connectionString, "ammdb", "ammdb");
+            
+            String query = "select * from iscritti  "
+                    + "where iscritto_id = ?";
+            
+            PreparedStatement stmt = conn.prepareStatement(query);
+            
+            stmt.setInt(1, id);
+            
+            
+            ResultSet res = stmt.executeQuery();
+            
+            if (res.next()){
+                Iscritto current = new Iscritto();
+                current.setId(res.getInt("iscritto_id"));
+                current.setNome(res.getString("nome"));
+                current.setCognome(res.getString("cognome"));
+                current.setUrlImmProfilo(res.getString("urlImmProf"));
+                current.setFrase(res.getString("frase"));
+                current.setNascita(res.getString("data_iscritto"));
+                current.setUsername(res.getString("username"));
+                current.setPsw(res.getString("password"));
+
+                stmt.close();
+                conn.close();
+                
+                return current;
+                
             }
+            stmt.close();
+            conn.close();
+        } catch(SQLException e){
+            e.printStackTrace();
         }
         return null;
     }
     
-    
-    
-    
-    public int getIdByUserAndPassword(String user, String password){
-        for(Iscritto iscritto : this.listaIscritti){
-            if(iscritto.getUsername().equals(user) && iscritto.getPsw().equals(password)){
-                return iscritto.getId();
+    public int getIdByUserAndPassword (String username, String password){
+        try{
+            Connection conn = DriverManager.getConnection(connectionString, "ammdb", "ammdb");
+            
+            String query = "select iscritto_id from iscritti  "
+                    + "where username = ?  and password = ?";
+            
+            PreparedStatement stmt = conn.prepareStatement(query);
+            
+            stmt.setString(1, username);
+            stmt.setString(2, password);
+            
+            ResultSet res = stmt.executeQuery();
+            
+            if (res.next()){
+                int id = res.getInt("iscritto_id");
+                                                
+                stmt.close();
+                conn.close();
+                
+                return id;                
             }
+            
+            stmt.close();
+            conn.close();
+        } catch(SQLException e){
+            e.printStackTrace();
         }
         return -1;
     }
-    
-    
-    
-    public ArrayList<Iscritto> getIscrittoList(){        
-        return listaIscritti;
-    }
-    
-    
 
+    
+    
 }

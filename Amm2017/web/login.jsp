@@ -34,7 +34,7 @@
                     <input type="text" name="username" id="username" placeholder="Inserisci Username" required/>
                         <br>
                     <label for="psw">Password</label>
-                        <input type="text" name="psw" id="psw" placeholder="Inserisci Password" required/>
+                        <input type="text" name="password" id="psw" placeholder="Inserisci Password" required/>
                         <br>
                         <button class="conferma" name="Submit" type="submit">Login</button>
                         <button class="cancella" type="reset">Cancella Campi</button>

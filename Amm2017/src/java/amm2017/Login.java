@@ -5,12 +5,13 @@
  */
 package amm2017;
 
-
 import amm2017.Classi.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,64 +23,71 @@ import javax.servlet.http.HttpSession;
  *
  * @author claar
  */
-@WebServlet (name="Login", urlPatterns = {"/login.html"})
+@WebServlet (name="Login", urlPatterns = {"/login.html"}, loadOnStartup = 0)
+
 public class Login extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    private static final String JDBC_DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
+    private static final String DB_CLEAN_PATH = "../../web/WEB-INF/db/ammdb";
+    private static final String DB_BUILD_PATH = "WEB-INF/db/ammdb";
+
+    @Override
+    public void init() {
+        String dbConnection = "jdbc:derby:" + this.getServletContext().getRealPath("/") + DB_BUILD_PATH;
+        try {
+            Class.forName(JDBC_DRIVER);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //IMPOSTO LA CONNECTION STRING PER OGNI FACTORY
+        IscrittoFactory.getInstance().setConnectionString(dbConnection);
+        PostFactory.getInstance().setConnectionString(dbConnection);
+    }
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
+         //Apertura della sessione
         HttpSession session = request.getSession();
-       
-        if(request.getParameter("logout")!=null){
+
+        //Se è impostato il parametro GET logout, distrugge la sessione
+        if(request.getParameter("logout")!=null)
+        {
             session.invalidate();
             request.getRequestDispatcher("login.jsp").forward(request, response);
-            return;
+
         }
-        
-        if (request.getParameter("Submit")!= null){
+
+        //Se esiste un attributo di sessione loggedIn e questo vale true
+        //(Utente già loggato)
+        if (session.getAttribute("loggedIn") != null &&
+            session.getAttribute("loggedIn").equals(true)) {
+
+            request.getRequestDispatcher("Bacheca").forward(request, response);
             
+
+        //Se l'utente non è loggato...
+        } else {
             String username = request.getParameter("username");
-            String password = request.getParameter("psw");
-            
-            ArrayList<Iscritto> listaIscritti = IscrittoFactory.getInstance().getIscrittoList();
-            
-            
-            for (Iscritto i : listaIscritti){
-                if(i.getUsername().equals(username) && i.getPsw().equals(password)){
-                    int loggedUserId = IscrittoFactory.getInstance().getIdByUserAndPassword(username, password);
-                    if (loggedUserId != -1){
-                        session.setAttribute("loggedIn", true);
-                        session.setAttribute("loggedUserId", loggedUserId);
-                    }
-                    if (i instanceof Iscritto){
-                        
-                    } if (i.getNome().equals("") || i.getCognome().equals("") || i.getFrase().equals("") || i.getNascita().equals("")){
-                        
-                        request.getRequestDispatcher("Profilo").forward(request, response); 
-                       } else{                           
-                                                       
-                            request.getRequestDispatcher("Bacheca").forward(request, response);
-                         }
-                }                
+            String password = request.getParameter("password");
+
+            if (username != null && password != null){
+                int loggedUserId = IscrittoFactory.getInstance().getIdByUserAndPassword(username, password);
+                session.setAttribute("loggedIn", true);
+                session.setAttribute("loggedUserId", loggedUserId);
+                request.getRequestDispatcher("Bacheca").forward(request, response);
             }
-            for (Iscritto i2 : listaIscritti){
-                if (!i2.getUsername().equals(username) || !i2.getPsw().equals(password)) {
-                    request.setAttribute("errore", "credenziali di accesso errate");
-                    request.getRequestDispatcher("login.jsp").forward(request, response);
-                }
-            }
-           
+                request.setAttribute("errore", "credenziali di accesso errate");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
         }
+
+        /*
+          Se non si verifica nessuno degli altri casi,
+          tentativo di accesso diretto alla servlet Login -> reindirizzo verso
+          il form di login.
+        */
         request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 

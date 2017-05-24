@@ -76,7 +76,7 @@ public class Profilo extends HttpServlet {
                         iscritto.setNascita(nascita);
                         iscritto.setUsername(username);
                         iscritto.setPsw(password);
-                        iscritto.setC_Psw(c_password);
+                        
                         
                         request.setAttribute("avviso", true);   
                         request.getRequestDispatcher("profilo.jsp").forward(request, response); 

@@ -18,8 +18,8 @@ public class Iscritto {
    protected String nascita;
    protected String username;
    protected String password;
-   protected String c_Password;
-   protected boolean loggedIn;
+   
+   
    
    public Iscritto(){
        id = 0;
@@ -28,9 +28,9 @@ public class Iscritto {
        urlImmProfilo = "";
        frase = "";
        nascita = "";
+       username = "";
        password = "";
-       c_Password = "";
-       loggedIn = false;
+
    }
    
    public int getId(){
@@ -75,25 +75,16 @@ public class Iscritto {
    public void setPsw(String password){
        this.password = password;
    }
-   public String getC_Psw(){
-       return c_Password;
-   }
-   public void setC_Psw(String c_Password){
-       this.c_Password = c_Password;
-   }
    
-   public boolean getLog(){
-       return loggedIn;
-   }
-   public void setLog(boolean loggedIn){
-       this.loggedIn = loggedIn;
-   }
+
    
    @Override
    public boolean equals(Object altroIscritto){
-       if (altroIscritto instanceof Iscritto)
-           if(this.getId() == ((Iscritto)altroIscritto).getId())
+       if (altroIscritto instanceof Iscritto){
+           if(this.getId() == ((Iscritto)altroIscritto).getId()){
                 return true;
+           }
+       }
        return false;  
    }
    public String getUrlImmProfilo(){
