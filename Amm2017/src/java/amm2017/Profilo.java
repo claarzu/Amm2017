@@ -1,15 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package amm2017;
 
 import amm2017.Classi.*;
 import java.util.List;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,7 +33,7 @@ public class Profilo extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         
        HttpSession session = request.getSession(false);
@@ -49,13 +48,15 @@ public class Profilo extends HttpServlet {
                 userID = Integer.parseInt(user);
             } else {
                 Integer loggedUserId = (Integer)session.getAttribute("loggedUserId");
-                userID = loggedUserId;
+                userID = loggedUserId;                       
             }
+            
             
             Iscritto iscritto = IscrittoFactory.getInstance().getIscrittoById(userID);
             
             if (iscritto != null){
                 request.setAttribute("iscritto", iscritto);
+                request.setAttribute("c_account", true);
                 
                 if (request.getParameter("conferma") != null){
 
@@ -66,9 +67,10 @@ public class Profilo extends HttpServlet {
                     String nascita = (String)request.getParameter("data");
                     String username = request.getParameter("username");
                     String password = request.getParameter("psw");
-                    String c_password = request.getParameter("c_psw");                
+                   
                     
-                    if (iscritto instanceof Iscritto){
+                    if (!nome.isEmpty() && !cognome.isEmpty() && !urlImmProfilo.isEmpty() && !frase.isEmpty() && !nascita.isEmpty() && !username.isEmpty() && !password.isEmpty()){
+                        iscritto.setId((int)session.getAttribute("loggedUserId"));
                         iscritto.setNome(nome);
                         iscritto.setCognome(cognome);
                         iscritto.setUrlImmProfilo(urlImmProfilo);
@@ -77,17 +79,31 @@ public class Profilo extends HttpServlet {
                         iscritto.setUsername(username);
                         iscritto.setPsw(password);
                         
-                        
+                        IscrittoFactory.getInstance().aggiornaIscritto(iscritto);                        
+                   
                         request.setAttribute("avviso", true);   
                         request.getRequestDispatcher("profilo.jsp").forward(request, response); 
-                    }                
+                    } 
+                    
                 }
+                if (request.getParameter("elimina")!=null){
+                    List<Post> lista = PostFactory.getInstance().getPostList(iscritto);
+                    for (Post post : lista){ 
+                        IscrittoFactory.getInstance().deleteIscritto(iscritto, post);
+                        request.getRequestDispatcher("login.jsp").forward(request, response);
+                    }
+                    
+                    session.setAttribute("loggedIn", false);
+                }
+                
                 
                 request.getRequestDispatcher("profilo.jsp").forward(request, response);                
             } else{
                 request.setAttribute("iscritto", "");                
                 request.getRequestDispatcher("profilo.jsp").forward(request, response); 
-            }     
+            }   
+            
+                    
         } else{
             request.setAttribute("invalidData", true);
             request.getRequestDispatcher("profilo.jsp").forward(request, response);
@@ -106,7 +122,11 @@ public class Profilo extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(Profilo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -120,7 +140,11 @@ public class Profilo extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(Profilo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

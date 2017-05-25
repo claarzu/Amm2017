@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package amm2017.Classi;
 
 /**
@@ -76,7 +72,12 @@ public class Iscritto {
        this.password = password;
    }
    
-
+   public String getUrlImmProfilo(){
+       return urlImmProfilo;
+   }
+   public void setUrlImmProfilo(String urlImmProfilo){
+       this.urlImmProfilo = urlImmProfilo;
+   }
    
    @Override
    public boolean equals(Object altroIscritto){
@@ -87,10 +88,5 @@ public class Iscritto {
        }
        return false;  
    }
-   public String getUrlImmProfilo(){
-       return urlImmProfilo;
-   }
-   public void setUrlImmProfilo(String urlImmProfilo){
-       this.urlImmProfilo = urlImmProfilo;
-   }
+   
 }

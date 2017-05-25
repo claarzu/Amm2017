@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Pagina bacheca della Milestone 2</title>
+        <title>NerdBook - Bacheca</title>
         <meta charset="UTF-8">
         <meta name="author" content="Claudio Arzu">
         <meta name="description" content="milestone 1, AMM2017">
@@ -37,51 +37,55 @@
             <div id="profile">
                 <jsp:include page="sidebar.jsp" />
                 <br>
+                <c:choose>
+                <c:when test="${empty newpost}">
                 <div id="nuovo_stato">
-                    <form action="Bacheca" method="POST">
+                    <form action="NewPost" method="POST">
                         <div id="postType">                            
                             <c:if test="${invalidData == true}">
                                 <h2 class="invalidData">Accesso non consentito</h2>
                             </c:if>                            
                             <br>
-                            <div>
-                            <label for="textType">Post di Testo</label>
-                            <input type="radio" name="textType" value="textType" id="textType">
-                            </div>
-                            <div>
-                                <label for="imgType">Post con Foto</label>
-                                <input type="radio" name="imgType" value="imgType" id="imgType">
-                            </div>
+                                <div>
+                                <label for="textType">Post di Testo</label>
+                                <input type="radio" name="postType" value="textType" id="textType">
+                                </div>
+                                <div>
+                                    <label for="imgType">Post con Foto</label>
+                                    <input type="radio" name="postType" value="imgType" id="imgType">
+                                </div>
                         </div>
                         <div id="postContent">
                             <div>
                                 <label for="textPost">Testo</label>
-                                <textarea name="textPost" id="textPost" value="${stato.content}"></textarea>
+                                <textarea name="textPost" id="textPost"></textarea>
                             </div>
                             <div>
                                 <label for="imgPost">File d'immagine</label>
-                                <input type="file" name="imgPost" id="imgPost"
-                                       value="${stato.content}">
+                                <input type="file" name="imgPost" id="imgPost">
                             </div>
                         </div>
-                        <button type="submit" name="Submit">Inserisci Post</button>
-                        <c:if test="${bottone == true}">
-                            <button type="submit" name="Submit2">Conferma</button>                                   
-                            <br>
-                        </c:if>
-                        <c:if test="${avviso == true}">
-                            <label id="avviso">Hai aggiunto un post sulla tua bacheca.</label>
-                                    Post Inserito da: "${iscritto.nome}" - nella bacheca di: "${iscritto.nome}"                                    
-                            <br>
-                        </c:if> 
-                        <c:if test="${avviso2 == true}">
-                            <label id="avviso2">Hai scritto sulla bacheca di: [${iscritto.nome}]</label>
-                            <br>
-                        </c:if> 
+                        <button type="submit" name="Submit" value="needConfirm">Inserisci Post</button>                       
                     </form>
                     <br>
                 </div>
-                
+                </c:when>
+                <c:otherwise>
+                    <div id="nuovo_stato">
+                        <form action="NewPost" method="post">
+                            <c:if test="${typePost == 'textType'}">
+                                <label>${content}</label>
+                                <input type="text" hidden name="textPost" value="${content}">
+                            </c:if>
+                            <c:if test="${typePost == 'imgType'}">
+                                <label><img src="${content}" alt="immagine"></label>
+                            </c:if>                            
+                            <input type="text" hidden name="postType" value="${typePost}">
+                            <button type="submit" name="Submit" value="Confirmed">Conferma</button>
+                        </form>
+                    </div>
+                </c:otherwise>
+            </c:choose>                
                 <div class="stati">                   
                     <div class="stato_utente" id="stati"> 
                                                     

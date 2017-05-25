@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Pagina descrizione della Milestone 2</title>
+        <title>NerdBook</title>
         <meta charset="UTF-8">
         <meta name="author" content="Claudio Arzu">
         <meta name="description" content="milestone 1, AMM2017">

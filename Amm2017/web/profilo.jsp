@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Pagina profilo della Milestone 2</title>
+        <title>NerdBook - Profilo</title>
         <meta charset="UTF-8">
         <meta name="author" content="Claudio Arzu">
         <meta name="description" content="milestone 1, AMM2017">
@@ -75,15 +75,15 @@
                             <label for="psw">Password</label>
                                 <input type="password" id="psw" name="psw" value="oscurato" placeholder="Inserisci password" required>
                                 <br>
-                            <label for="c_psw">Conferma Password</label>
-                            <input type="password" id="c_psw" name="c_psw" value="oscurato" placeholder="Conferma password" required>
-                                <br>
                             <button id="conferma" type="submit" name="conferma">Aggiorna</button>
-                            <button id="cancella" type="reset" name="cancella">Cancella Campi</button> 
-                            
-                                                               
-                            
+                            <button id="cancella" type="reset" name="cancella">Cancella Campi</button>                   
                         </form>
+                        <c:if test="${c_account==true}">
+                            <form class="form_signin" action="Profilo" method="POST">
+                                <button id="conferma" type="submit" name="elimina">Cancella Account</button>
+                            </form>
+                        </c:if>                                   
+
                     </div>
                 </div>
             </div>           

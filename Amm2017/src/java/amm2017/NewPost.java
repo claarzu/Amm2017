@@ -1,26 +1,21 @@
 
 package amm2017;
 
-import amm2017.Classi.Iscritto;
 import amm2017.Classi.IscrittoFactory;
 import amm2017.Classi.Post;
 import amm2017.Classi.PostFactory;
-import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
 /**
  *
  * @author claar
  */
-@WebServlet (name="Bacheca", urlPatterns = {"/bacheca.html"})
-public class Bacheca extends HttpServlet {
+public class NewPost extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,41 +30,43 @@ public class Bacheca extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        
         HttpSession session = request.getSession(false);
-
         
-        if (session != null && session.getAttribute("loggedIn")!=null &&
-           session.getAttribute("loggedIn").equals(true)){   
-          
-            String user = request.getParameter("user");
-            int userID;
-            
-            if (user != null){
-                userID = Integer.parseInt(user);
-            } else {
-                Integer loggedUserId = (Integer)session.getAttribute("loggedUserId");
-                userID = loggedUserId;                       
-            }
-            
-            Iscritto iscritto = IscrittoFactory.getInstance().getIscrittoById(userID);
-            
-            if (iscritto != null){
-                request.setAttribute("iscritto", iscritto);
+        if(session!=null && 
+           session.getAttribute("loggedIn")!=null &&
+           session.getAttribute("loggedIn").equals(true)){         
+        
+            if(request.getParameter("Submit")!=null){
+                String thereIsPost = request.getParameter("Submit");
+                String content = request.getParameter("textPost");
+                String type = request.getParameter("postType");
+                if(thereIsPost.equals("needConfirm")){
+                    request.setAttribute("content", content);
+                    request.setAttribute("typePost", type);
+                    request.setAttribute("newpost", "true");
+                    request.getRequestDispatcher("bacheca.jsp").forward(request, response);
 
-                List<Post> listaStati = PostFactory.getInstance().getPostList(iscritto);     
-                
-                request.setAttribute("listaStati", listaStati);                 
-           
-                
-                request.getRequestDispatcher("bacheca.jsp").forward(request, response);       
-            } else {
-                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            }             
-        } else {
-            request.setAttribute("invalidData", true); 
-            request.getRequestDispatcher("bacheca.jsp").forward(request, response);
-        } 
+                }
+                else{                        
+                    Post post = new Post();
+                    post.setContent(content);
+                    if(type.equals("textType"))
+                        post.setPostType(Post.Type.TEXT);
+                    else
+                        post.setPostType(Post.Type.IMAGE);
+
+                    post.setUser(IscrittoFactory.getInstance().getIscrittoById((Integer)session.getAttribute("loggedUserId")));
+                    PostFactory.getInstance().addNewPost(post);
+                    request.getRequestDispatcher("Bacheca").forward(request, response);
+                }
+            }
+            else{
+                request.getRequestDispatcher("bacheca.jsp").forward(request, response);
+
+            }            
+        }else{
+            request.getRequestDispatcher("Login").forward(request, response);
+        }            
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

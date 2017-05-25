@@ -79,6 +79,51 @@ public class PostFactory {
         return null;
     }
     
+    public Post getPostByIscritto(Iscritto i){
+        IscrittoFactory iscrittoFactory = IscrittoFactory.getInstance();
+        
+        try {
+            Connection conn = DriverManager.getConnection(connectionString, "ammdb", "ammdb");
+            
+            String query = "select * from posts "
+                    + "join posttype on posts.type = posttype.posttype_id "
+                    + "where author = ?";
+            
+            PreparedStatement stmt = conn.prepareStatement(query);
+            
+            stmt.setObject(1, i);
+            
+            
+            ResultSet res = stmt.executeQuery();
+            
+            if (res.next()){
+                Post current = new Post();
+                
+                current.setId(res.getInt("post_id")); 
+                current.setContent(res.getString("content"));
+                current.setPostType(this.postTypeFromString(res.getString("posttype_name")));
+                
+                Iscritto autore = iscrittoFactory.getIscrittoById(res.getInt("author"));
+                current.setUser(autore);
+                
+                
+                stmt.close();
+                conn.close();
+                
+                return current;
+                
+            }
+            stmt.close();
+            conn.close();
+        
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    
+    }
+    
+    
     public List getPostList(Iscritto iscr){
         List<Post> listaPost = new ArrayList<Post>();
         
@@ -132,7 +177,7 @@ public class PostFactory {
         
         try {
             // path, username, password
-            Connection conn = DriverManager.getConnection(connectionString, "amm", "amm");
+            Connection conn = DriverManager.getConnection(connectionString, "ammdb", "ammdb");
             
             String query = 
                       "select * from posts "
@@ -161,7 +206,7 @@ public class PostFactory {
                 //imposto il tipo del post
                 current.setPostType(this.postTypeFromString(res.getString("posttype_name")));
 
-                //imposto l'autore del post
+                //imposto il gruppo in cui è inserito il post
                 current.setGruppo(grr);
                 
                 listaPost.add(current);
@@ -178,7 +223,7 @@ public class PostFactory {
     public void addNewPost(Post post){
         try {
             // path, username, password
-            Connection conn = DriverManager.getConnection(connectionString, "amm", "amm");
+            Connection conn = DriverManager.getConnection(connectionString, "ammdb", "ammdb");
             
             String query = 
                       "insert into posts (post_id, content, type, author) "
@@ -218,5 +263,5 @@ public class PostFactory {
             else
                 return 2;
     }
-    
+
 }

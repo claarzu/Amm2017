@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package amm2017;
 
 import amm2017.Classi.*;
@@ -40,19 +36,18 @@ public class Login extends HttpServlet {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        //IMPOSTO LA CONNECTION STRING PER OGNI FACTORY
-        IscrittoFactory.getInstance().setConnectionString(dbConnection);
-        PostFactory.getInstance().setConnectionString(dbConnection);
+        
+        IscrittoFactory.getInstance().setConnectionString("jdbc:derby://localhost:1527/ammdb");
+        PostFactory.getInstance().setConnectionString("jdbc:derby://localhost:1527/ammdb");
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-         //Apertura della sessione
+
         HttpSession session = request.getSession();
 
-        //Se è impostato il parametro GET logout, distrugge la sessione
         if(request.getParameter("logout")!=null)
         {
             session.invalidate();
@@ -60,15 +55,11 @@ public class Login extends HttpServlet {
 
         }
 
-        //Se esiste un attributo di sessione loggedIn e questo vale true
-        //(Utente già loggato)
         if (session.getAttribute("loggedIn") != null &&
             session.getAttribute("loggedIn").equals(true)) {
 
             request.getRequestDispatcher("Bacheca").forward(request, response);
-            
 
-        //Se l'utente non è loggato...
         } else {
             String username = request.getParameter("username");
             String password = request.getParameter("password");
@@ -76,20 +67,29 @@ public class Login extends HttpServlet {
             if (username != null && password != null){
                 int loggedUserId = IscrittoFactory.getInstance().getIdByUserAndPassword(username, password);
                 
-                
-                session.setAttribute("loggedIn", true);
-                session.setAttribute("loggedUserId", loggedUserId);
-                request.getRequestDispatcher("Bacheca").forward(request, response);
+                if(loggedUserId != -1){
+                    session.setAttribute("loggedIn", true);
+                    session.setAttribute("loggedUserId", loggedUserId);                    
+                    
+                    Iscritto i = IscrittoFactory.getInstance().getIscrittoById(loggedUserId);
+                    
+                    if(i.getNome().equals("") || i.getCognome().equals("") || i.getUrlImmProfilo().equals("") || i.getFrase().equals("") || i.getNascita().equals("")){
+                        session.setAttribute("loggedIn", true);
+                        session.setAttribute("loggedUserId", loggedUserId);
+                        request.getRequestDispatcher("Profilo").forward(request, response);
+                    } else{
+                        request.getRequestDispatcher("Bacheca").forward(request, response);
+                    }
+                } else {
+                    request.setAttribute("errore", "credenziali di accesso errate");
+                    request.getRequestDispatcher("login.jsp").forward(request, response);
+                }
+                    
             }
-                request.setAttribute("errore", "credenziali di accesso errate");
-                request.getRequestDispatcher("login.jsp").forward(request, response);
+                
         }
 
-        /*
-          Se non si verifica nessuno degli altri casi,
-          tentativo di accesso diretto alla servlet Login -> reindirizzo verso
-          il form di login.
-        */
+        
         request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 

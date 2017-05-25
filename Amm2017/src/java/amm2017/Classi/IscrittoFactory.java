@@ -9,6 +9,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author claar
@@ -82,8 +85,9 @@ public class IscrittoFactory {
         try{
             Connection conn = DriverManager.getConnection(connectionString, "ammdb", "ammdb");
             
-            String query = "select iscritto_id from iscritti  "
-                    + "where username = ?  and password = ?";
+            String query = 
+                    "select iscritto_id from iscritti  "
+                    + "where username = ? and password = ?";
             
             PreparedStatement stmt = conn.prepareStatement(query);
             
@@ -96,8 +100,7 @@ public class IscrittoFactory {
                 int id = res.getInt("iscritto_id");
                                                 
                 stmt.close();
-                conn.close();
-                
+                conn.close();                
                 return id;                
             }
             
@@ -108,7 +111,95 @@ public class IscrittoFactory {
         }
         return -1;
     }
+    public void aggiornaIscritto (Iscritto i){
+        
+        try {
+            // path, username, password
+            Connection conn = DriverManager.getConnection(connectionString, "ammdb", "ammdb");
+            
+            String query = 
+                      "UPDATE iscritti SET nome=?, cognome=?, urlImmProf=?, frase=?, data_iscritto=?, username=?, password=?"
+                    + "WHERE iscritto_id=?";
+   
+            // Prepared Statement
+            PreparedStatement stmt = conn.prepareStatement(query);
+ 
+            stmt.setString(1, i.getNome());
+            stmt.setString(2, i.getCognome());
+            stmt.setString(3, i.getUrlImmProfilo());
+            stmt.setString(4, i.getFrase());
+            stmt.setString(5, i.getNascita());
+            stmt.setString(6, i.getUsername());
+            stmt.setString(7, i.getPsw());
+            stmt.setInt(8, i.getId());
+            
+            stmt.executeUpdate();
+            stmt.close();
+            conn.close();
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
 
-    
-    
+    public void deleteIscritto (Iscritto i, Post p) throws SQLException{
+        
+        Connection conn = DriverManager.getConnection(connectionString, "ammdb", "ammdb");
+        
+        PreparedStatement stmt = null;
+        PreparedStatement stmt2 = null;
+        
+        
+        String delQuery = 
+                "DELETE FROM posts"
+                +"JOIN iscritti"
+                +"ON posts.author=iscritti.iscritto_id"
+               +"WHERE posts.post_id=? AND iscritti.iscritto_id=?";
+        String delQuery2=
+                "DELETE FROM iscritti"
+                +"WHERE iscritto_id=?";
+        try{
+            conn.setAutoCommit(false);
+            
+            stmt = conn.prepareStatement(delQuery);
+            stmt2= conn.prepareStatement(delQuery2);
+            
+            stmt.setInt(1, p.getUser().getId()); 
+            stmt.setInt(2, i.getId());
+            
+            stmt2.setInt(1, i.getId());
+            
+            int r = stmt.executeUpdate();
+            int r2 = stmt2.executeUpdate();
+            
+            if(r!=1 || r2!=1){
+                conn.rollback();
+            }
+            
+            conn.commit();
+            conn.close();
+            
+        }catch(SQLException e){
+            e.printStackTrace();
+            
+            if (conn != null){
+                try{
+                conn.rollback();
+                }catch(SQLException ex){
+                    e.printStackTrace();
+                }
+            }
+        } finally{
+            if(stmt != null){
+                stmt.close();
+            }
+            if(stmt2 != null){
+                stmt2.close();
+            }
+        
+            conn.setAutoCommit(true);
+            conn.close();
+        }
+    }
+
 }
