@@ -16,8 +16,7 @@ public class Gruppi {
         utente = null;
         post_gruppo = null;
         nome_gruppo = "";
-    }
-    
+    }    
     public int getId(){
         return id;
     }

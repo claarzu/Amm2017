@@ -121,8 +121,7 @@ public class PostFactory {
         }
         return null;
     
-    }
-    
+    }    
     
     public List getPostList(Iscritto iscr){
         List<Post> listaPost = new ArrayList<Post>();

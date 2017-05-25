@@ -59,6 +59,5 @@ public class Post {
     
     public void setPostType(Type postType){
         this.postType = postType;
-    }
-    
+    }    
 }

@@ -41,8 +41,7 @@ public class IscrittoFactory {
     private IscrittoFactory(){       
     }
     
-    public Iscritto getIscrittoById(int id){
-        
+    public Iscritto getIscrittoById(int id){        
         try{
             Connection conn = DriverManager.getConnection(connectionString, "ammdb", "ammdb");
             

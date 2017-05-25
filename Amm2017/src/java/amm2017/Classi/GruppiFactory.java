@@ -15,6 +15,7 @@ public class GruppiFactory {
         }
         return singleton;
     }
+    
     private String connectionString;
     private ArrayList<Gruppi> listaGruppi = new ArrayList<Gruppi>();
     

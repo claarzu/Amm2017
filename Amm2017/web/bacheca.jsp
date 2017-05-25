@@ -4,6 +4,7 @@
     Author     : claar
 --%>
 
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -19,8 +20,7 @@
     </head>
     <body>
         <c:set var="page" value="Bacheca" scope="request"/>
-        <div class="contenitore">
-            
+        <div class="contenitore">            
             <nav class="navbar">
                 <ul class="nav_bar">
                     <li id="head"><a href="descrizione.jsp">NerdBook</a></li>

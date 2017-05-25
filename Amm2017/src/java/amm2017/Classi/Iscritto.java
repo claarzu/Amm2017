@@ -15,8 +15,7 @@ public class Iscritto {
    protected String username;
    protected String password;
    
-   
-   
+    
    public Iscritto(){
        id = 0;
        nome = "";

@@ -3,7 +3,6 @@
     Created on : 14-apr-2017, 16.54.47
     Author     : claar
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

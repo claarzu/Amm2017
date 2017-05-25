@@ -3,7 +3,6 @@
     Created on : 14-apr-2017, 17.14.03
     Author     : claar
 --%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

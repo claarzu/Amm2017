@@ -1,4 +1,4 @@
-ci sono 3 entità:
+ci sono 3 entitï¿½:
 Iscritti, Post, Gruppi, Amici
 
 Attributi [Iscritti]{
@@ -48,12 +48,11 @@ Attributi di relazione [Amici]{
 	chiave esterna "followed" riferita "all'id" del iscritto
 }
 
-
-relazioni per l'entità Iscritti:
+relazioni per l'entitï¿½ Iscritti:
 
 per ogni iscritto quanti post? molti
 per ogni post quanti iscritti? 1
-Iscritti->Post : uno a molti  Cardinalità: 1
+Iscritti->Post : uno a molti  Cardinalitï¿½: 1
 
 per ogni Iscritto quanti gruppi? molti
 per ogni gruppo quanti iscritti? molti
@@ -61,23 +60,23 @@ Iscritti->Gruppi : molti a molti
 
 
 
-relazioni per l'entità Post:
+relazioni per l'entitï¿½ Post:
 
 per ogni post quanti iscritti? 1
 per ogni iscritto quanti post? molti
-Post->Iscritti : uno a molti Cardinalità: 1
+Post->Iscritti : uno a molti Cardinalitï¿½: 1
 
 per ogni post quanti gruppi? 1
 per ogni gruppo quanti post? molti
-Post->Gruppi : uno a molti Cardinalità: 1
+Post->Gruppi : uno a molti Cardinalitï¿½: 1
 
 per ogni post quanti postType? molti
 per ogni postType quanti post? 1
-Post->postType : uno a molti Cardinalità: 1
+Post->postType : uno a molti Cardinalitï¿½: 1
 
 
 
-relazioni per l'entità Gruppi:
+relazioni per l'entitï¿½ Gruppi:
 
 per ogni gruppo quanti iscritti? molti
 per ogni iscritto quanti gruppi? molti
@@ -85,11 +84,11 @@ Gruppi->Iscritti : molti a molti
 
 per ogni gruppo quanti post? molti
 per ogni post quanti gruppi? 1
-Gruppi->Post : uno a molti Cardinalità: 1
+Gruppi->Post : uno a molti Cardinalitï¿½: 1
 
 
 
-relazioni per l'entità Amici:
+relazioni per l'entitï¿½ Amici:
 
 per ogni iscritto quanti amici? molti
 per ogni amico quanti iscritti? molti
