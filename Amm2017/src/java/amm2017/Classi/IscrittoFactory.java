@@ -200,5 +200,81 @@ public class IscrittoFactory {
             conn.close();
         }
     }
+    
+    
+    public List getIscrittiList(String nome){
+        List<Iscritto> usersList = new ArrayList<Iscritto>();
+        
+        try{
+            Connection conn = DriverManager.getConnection(connectionString, "ammdb", "ammdb");
+            
+            String query = "select * from iscritti"
+                    +"where nome like ?";
+            
+            PreparedStatement stmt = conn.prepareStatement(query);
+            
+            stmt.setString(1, "%"+nome+"%");
+            
+            ResultSet res = stmt.executeQuery();
+            
+            while(res.next()){
+                Iscritto i = new Iscritto();
+                i.setId(res.getInt("iscritto_id"));
+                i.setNome(res.getString("nome"));
+                i.setCognome(res.getString("cognome"));
+                i.setUrlImmProfilo(res.getString("urlImmProf"));
+                i.setFrase(res.getString("frase"));
+                i.setNascita(res.getString("data_iscritto"));
+                i.setUsername(res.getString("username"));
+                i.setPsw(res.getString("password"));
+                
+                usersList.add(i);
+            }
+            
+            stmt.close();
+            conn.close();
+            
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return usersList;
+    }
+    
+    public List getIscrittiList(){
+        List<Iscritto> usersList = new ArrayList<Iscritto>();
+        
+        try {
+            
+            Connection conn = DriverManager.getConnection(connectionString, "ammdb", "ammdb");
+            
+            String query = "select * from iscritti";
+            
+            PreparedStatement stmt = conn.prepareStatement(query);
+            
+            ResultSet res = stmt.executeQuery();
+
+            while (res.next()) {
+                Iscritto current = new Iscritto();
+                current.setId(res.getInt("iscritto_id"));
+                current.setNome(res.getString("nome"));
+                current.setCognome(res.getString("cognome"));
+                current.setUrlImmProfilo(res.getString("urlImmProf"));
+                current.setFrase(res.getString("frase"));
+                current.setNascita(res.getString("data_iscritto"));
+                current.setUsername(res.getString("username"));
+                current.setPsw(res.getString("password"));                
+                
+                usersList.add(current);
+            }
+
+            stmt.close();
+            conn.close();
+                       
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return usersList;
+    }
 
 }

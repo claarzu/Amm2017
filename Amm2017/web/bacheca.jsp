@@ -3,8 +3,6 @@
     Created on : 14-apr-2017, 17.09.20
     Author     : claar
 --%>
-
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -13,10 +11,12 @@
         <title>NerdBook - Bacheca</title>
         <meta charset="UTF-8">
         <meta name="author" content="Claudio Arzu">
-        <meta name="description" content="milestone 1, AMM2017">
-        <meta name="keywords" content="HTML, Amm2017">
+        <meta name="description" content="AMM2017">
+        <meta name="keywords" content="Amm2017">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="style.css" media="screen">
+        <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="js/filter.js"></script>
     </head>
     <body>
         <c:set var="page" value="Bacheca" scope="request"/>
@@ -35,8 +35,45 @@
                 </ul>
             </nav>           
             <div id="profile">
-                <jsp:include page="sidebar.jsp" />
+                <aside class="sidebar">                    
+                    <div id="searchIscritto">                        
+                        <h1 id="searchError">non trovato</h1>                       
+                        <input id="searchField" type="text" placeholder="cerca il tuo amico" value="">
+                        <button id="searchFriend">Cerca!</button>
+                    </div>
+                    <br>        
+                    <h1>Persone</h1>
+                    <ul class="sidebar_ul" id="usersList">
+                    <c:forEach var="iscritto" items="${lista}">    
+                        <li class="link"><a href="Bacheca?user=${iscritto.id}" target="_blank">${iscritto.nome}</a></li>
+                        <br>
+                    </c:forEach>
+                    <c:forEach var="iscritto" items="${usersList}">    
+                        <li class="link"><a href="Bacheca?user=${iscritto.id}" target="_blank">${iscritto.nome}</a></li>
+                        <br>
+                    </c:forEach>
+                     
+                    </ul>
+                    <br>
+                    <h1>Gruppi</h1>
+                    <ul class="sidebar_ul">
+                        <li class="img_gruppi"><a href="#gruppo1">Gruppo1</a></li>
+                        <li class="img_gruppi"><a href="#gruppo2">Gruppo2</a></li>
+                        <li class="img_gruppi"><a href="#gruppo3">Gruppo3</a></li>
+                    </ul>
+                </aside> 
                 <br>
+                <div id="usersList">
+                <c:forEach var="iscritto" items="${usersList}">
+                    <div class="user">                        
+                        <div class="userData">
+                            <h2>${iscritto.nome}</h2>
+                            <a href="Profilo?user=${iscritto.id}">Vai al profilo</a>
+                            <br>
+                        </div>                        
+                    </div>
+                </c:forEach>
+                </div>
                 <c:choose>
                 <c:when test="${empty newpost}">
                 <div id="nuovo_stato">

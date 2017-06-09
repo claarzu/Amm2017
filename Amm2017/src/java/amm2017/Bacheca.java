@@ -7,6 +7,7 @@ import amm2017.Classi.Post;
 import amm2017.Classi.PostFactory;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -35,8 +36,9 @@ public class Bacheca extends HttpServlet {
         
         
         HttpSession session = request.getSession(false);
-
-        
+       
+	request.setAttribute("lista", IscrittoFactory.getInstance().getIscrittiList());
+	 
         if (session != null && session.getAttribute("loggedIn")!=null &&
            session.getAttribute("loggedIn").equals(true)){   
           
@@ -63,7 +65,9 @@ public class Bacheca extends HttpServlet {
                 request.getRequestDispatcher("bacheca.jsp").forward(request, response);       
             } else {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            }             
+            } 
+
+            
         } else {
             request.setAttribute("invalidData", true); 
             request.getRequestDispatcher("bacheca.jsp").forward(request, response);

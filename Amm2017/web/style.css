@@ -3,6 +3,20 @@
     Author     : claar
 */
 /* --- stili validi per tutte le pagine --- */
+#usersList{
+    width: 80%;
+    float: right;
+}
+.profilePic{
+    width: 60%;
+    height: 35%;
+    float: none;
+}
+.immagine{
+    width: 50%;
+    height: 25%;
+    float: none;
+}
 h1, h2, h3, h4, h5{
     font-family: "Arial", serif;
     color: #b30000;

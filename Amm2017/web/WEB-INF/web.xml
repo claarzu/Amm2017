@@ -16,6 +16,14 @@
         <servlet-name>NewPost</servlet-name>
         <servlet-class>amm2017.NewPost</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Filter</servlet-name>
+        <servlet-class>amm2017.Filter</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CercaAmici</servlet-name>
+        <servlet-class>CercaAmici</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Bacheca</servlet-name>
         <url-pattern>/Bacheca</url-pattern>
@@ -31,6 +39,14 @@
     <servlet-mapping>
         <servlet-name>NewPost</servlet-name>
         <url-pattern>/NewPost</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Filter</servlet-name>
+        <url-pattern>/Filter</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CercaAmici</servlet-name>
+        <url-pattern>/CercaAmici</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

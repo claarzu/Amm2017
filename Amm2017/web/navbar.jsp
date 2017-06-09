@@ -11,8 +11,8 @@
         <title>NerdBook</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">   
         <meta name="author" content="Claudio Arzu">
-        <meta name="description" content="milestone 1, AMM2017">
-        <meta name="keywords" content="HTML, Amm2017">
+        <meta name="description" content="AMM2017">
+        <meta name="keywords" content="Amm2017">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="style.css" media="screen">
     </head>
